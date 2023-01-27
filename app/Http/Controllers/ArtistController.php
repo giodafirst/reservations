@@ -29,7 +29,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        //
+        return view('artist.create');
     }
 
     /**
@@ -40,7 +40,22 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation des données du formulaire
+        $validated = $request->validate([
+            'firstname' => 'required|max:60',
+            'lastname' => 'required|max:60',
+        ]);
+
+        //Le formulaire a été validé, nous créons un nouvel artiste à insérer
+        $artist = new Artist();
+
+        //Assignation des données et sauvegarde dans la base de données
+        $artist->firstname = $validated['firstname'];
+        $artist->lastname = $validated['lastname'];
+
+        $artist->save();
+
+        return redirect()->route('artist.index');
     }
 
     /**
