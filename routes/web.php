@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\TypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/type',[TypeController::class, 'index'])->name('type.index');
+Route::get('/type/{id}',[TypeController::class, 'show'])->name('type.show');
 Route::get('/artist',[ArtistController::class, 'index'])->name('artist.index');
 Route::get('/artist/{id}',[ArtistController::class, 'show'])->where('id','[0-9]+')->name('artist.show');
 Route::get('/artist/edit/{id}',[ArtistController::class, 'edit'])->where('id','[0-9]+')->name('artist.edit');
@@ -25,5 +28,6 @@ Route::put('/artist/{id}',[ArtistController::class, 'update'])->where('id','[0-9
 Route::delete('/artist/{id}',[ArtistController::class, 'destroy'])->where('id','[0-9]+')->name('artist.delete');
 Route::get('/artist/create',[ArtistController::class, 'create'])->name('artist.create');
 Route::post('/artist',[ArtistController::class, 'store'])->name('artist.store');
+
 
 

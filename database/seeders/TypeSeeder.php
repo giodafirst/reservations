@@ -22,7 +22,7 @@ class TypeSeeder extends Seeder
             ['type' => 'acteur'],
             ['type' => 'chanteur'],
             ['type' => 'producteur'],
-            ['type' => 'metteur en scene'],
+            ['type' => 'metteur en scène'],
             ['type' => 'technicien'],
         ];
 
