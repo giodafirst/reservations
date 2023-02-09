@@ -1,15 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title','Liste des types')
+{{--@section('title','Liste des types d'artistes')--}}
 
 @section('content')
     <h1>Liste des {{ $resource }}</h1>
-    
-        <div>
+   
+    <table>
             @foreach($types as $type)
-            <ul>
-                <li><a href="{{ route('type.show', $type->id) }}">{{ $type->type }}</a></li>
-            </ul>
+            <tr>
+                <td>
+                    <a href="{{ route('type.show', $type->id) }}">{{ $type->type }}</a>
+                </td>
+            </tr>
             @endforeach
-        </div>
-    @endsection
+    </table>
+@endsection

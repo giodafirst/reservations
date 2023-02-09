@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Locality;
+use App\Models\Role;
 
-class LocalityController extends Controller
+
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +15,13 @@ class LocalityController extends Controller
      */
     public function index()
     {
-        $localities = Locality::all();
-            return view('localities/index',[
-                'localities'=>$localities,
-                'resource' => 'localités',
+        $role = Role::all();
 
-            ]);
+        return view('role.index',[
+            'roles' => $role,
+            'resource' => 'roles',
+        ]);
+
     }
 
     /**
@@ -51,7 +53,11 @@ class LocalityController extends Controller
      */
     public function show($id)
     {
-        //
+        $role= Role::find($id);
+
+        return view('role.show',[
+            'role'=>$role,
+        ]);
     }
 
     /**

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LocalitySeeder::class,
             RoleSeeder::class,
+            LocationSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

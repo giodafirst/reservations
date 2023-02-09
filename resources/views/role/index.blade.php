@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
-@section('title','Liste des localités')
+@section('title','Liste des roles')
 
 @section('content')
     <h1>Liste des {{ $resource }}</h1>
    
     <table>
-            @foreach($localities as $locality)
+            @foreach($roles as $role)
             <tr>
                 <td>
-                    <a href="{{ route('locality.show', $locality->id) }}">{{ $locality->locality }}</a>
+                    <a href="{{ route('role.show', $role->id) }}">{{ $role->role }}</a>
                 </td>
             </tr>
             @endforeach
