@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('lastname',60)->after('name');
             $table->string('login',30)->after('id');
-            $table->string('langue',2);
+            $table->string('langue',3);
             $table->enum('role',['admin','member'])->default('member');
             $table->unique('login','users_login_unique');
         });

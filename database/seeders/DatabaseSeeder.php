@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             ArtistSeeder::class,
             TypeSeeder::class,
             UserSeeder::class,
+            LocalitySeeder::class,
+            RoleSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
