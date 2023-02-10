@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Locality;
+use App\Models\Location;
 
-class LocalityController extends Controller
+
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +15,12 @@ class LocalityController extends Controller
      */
     public function index()
     {
-        $localities = Locality::all();
-            return view('locality.index',[
-                'localities'=>$localities,
-                'resource' => 'localités',
+        $locations = Location::all();
+            return view('location.index',[
+                'locations'=>$locations,
+                'resource' => 'lieux de spectacle',
 
             ]);
-            
     }
 
     /**
@@ -52,12 +52,11 @@ class LocalityController extends Controller
      */
     public function show($id)
     {
-        $locality = Locality::find($id);
+        $location = Location::find($id);
         //dd($id);
-        return view('locality.show',[
-            'locality'=>$locality,
+        return view('location.show',[
+            'location'=>$location,
         ]);
-
     }
 
     /**

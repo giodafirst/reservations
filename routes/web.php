@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocalityController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,8 +42,11 @@ Route::delete('/artist/{id}',[ArtistController::class, 'destroy'])->where('id','
 Route::get('/artist/create',[ArtistController::class, 'create'])->name('artist.create');
 Route::post('/artist',[ArtistController::class, 'store'])->name('artist.store');
 Route::get('/locality',[LocalityController::class, 'index'])->name('locality.index');
-Route::get('/locality/{id}',[LocalityController::class, 'show'])->name('locality.show');
+Route::get('/locality/{id}',[LocalityController::class, 'show'])->where('id','[0-9]+')->name('locality.show');
 Route::get('/role',[RoleController::class, 'index'])->name('role.index');
 Route::get('/role/{id}',[RoleController::class, 'show'])->name('role.show');
+Route::get('/location',[LocationController::class, 'index'])->name('location.index');
+Route::get('/location/{id}',[LocationController::class, 'show'])->where('id','[0-9]+')->name('location.show');
+
 
 require __DIR__.'/auth.php';
