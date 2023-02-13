@@ -27,4 +27,8 @@ class Show extends Model
     public function location(){
         return $this->belongsTo(Location::class);
     }
+
+    public function representations(){
+        return $this->hasMany(Representation::class);
+    }
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Show;
 use App\Models\Location;
+use Illuminate\Support\Facades\Schema;
+
 
 class ShowSeeder extends Seeder
 {
@@ -18,8 +20,14 @@ class ShowSeeder extends Seeder
      */
     public function run()
     {
-        // Empty the table first
+        //Désactiver les contraintes d'intégrité
+        Schema::disableForeignKeyConstraints();
+
+        //Empty the table first
         Show::truncate();
+
+        //Réactiver les clefs
+        Schema::enableForeignKeyConstraints();
 
         //Define data
         $shows = [
