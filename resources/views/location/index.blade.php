@@ -5,13 +5,13 @@
 @section('content')
     <h1>Liste des {{ $resource }}</h1>
    
-    <table>
+    <ul>
             @foreach($locations as $location)
-            <tr>
-                <td>
-                    <a href="{{ route('location.show', $location->id) }}">{{ $location->designation }}</a>
-                </td>
-            </tr>
+                <li><a href="{{ route('location.show', $location->id) }}">{{ $location->designation }}</a>
+                @if($location->website)
+                    - <a href="{{ $location->website }}">{{ $location->website }}</a>
+                @endif
+                </li>
             @endforeach
-    </table>
+    </ul>
 @endsection
