@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Locality;
 use App\Models\Location;
+use Illuminate\Support\Facades\Schema;
+
 
 class LocationSeeder extends Seeder
 {
@@ -18,9 +20,14 @@ class LocationSeeder extends Seeder
      */
     public function run()
     {
-        // Empty the table first
-        Location::truncate();
+         //Désactiver les contraintes d'intégrité
+         Schema::disableForeignKeyConstraints();
 
+         //Empty the table first
+         Location::truncate();
+ 
+         //Réactiver les clefs
+         Schema::enableForeignKeyConstraints();
         //Define data
         $locations = [
             [
