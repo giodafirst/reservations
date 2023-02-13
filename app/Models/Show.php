@@ -24,7 +24,7 @@ class Show extends Model
 
     public $timestamps = true;
 
-    public function show(){
+    public function location(){
         return $this->belongsTo(Location::class);
     }
 }
