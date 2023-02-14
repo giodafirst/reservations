@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Artist;
+use Illuminate\Support\Facades\Schema;
+
 
 
 class ArtistSeeder extends Seeder
@@ -17,8 +19,14 @@ class ArtistSeeder extends Seeder
      */
     public function run()
     {
-        //Empty the table first
-        Artist::truncate();
+         //Désactiver les contraintes d'intégrité
+         Schema::disableForeignKeyConstraints();
+
+         //Empty the table first
+         Artist::truncate();
+ 
+         //Réactiver les clefs
+         Schema::enableForeignKeyConstraints();
 
         $artists = [
             ['firstname'=>'Daniel','lastname'=>'Marcelin'],
