@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ArtistTypeSeeder::class,
             ArtistTypeShowSeeder::class,
             RoleUserSeeder::class,
+            RepresentationUserSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
