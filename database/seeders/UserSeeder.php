@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Schema;
+
 
 
 class UserSeeder extends Seeder
@@ -19,8 +21,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //Désactiver les contraintes d'intégrité
+        Schema::disableForeignKeyConstraints();
+
         //Empty the table first
         User::truncate();
+
+        //Réactiver les clefs
+        Schema::enableForeignKeyConstraints();
 
         //Define data
         $users = [
@@ -32,7 +40,7 @@ class UserSeeder extends Seeder
                 'password'=>'12345678',
                 'langue'=>'eng',
                 'created_at'=>'',
-                'role'=>'member',
+                'role'=>'admin',
 
             ],
             [

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'login',
         'langue',
     ];
+    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +45,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
 }
