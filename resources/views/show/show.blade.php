@@ -45,6 +45,63 @@
         @else
         <p>Aucune représentation</p>
         @endif
+
+        <h2>Liste des artistes</h2>
+        <p><strong>Producteur : </strong>
+        @if (isset($collaborateurs['producteur']))
+        @foreach($collaborateurs['producteur'] as $producteur)
+        {{ $producteur->firstname }}
+        {{ $producteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
+        @endforeach
+        </p>
+        @endif
+        <p><strong>Metteur en scène : </strong>
+        @if (isset($collaborateurs['metteur en scène']))
+
+        @foreach($collaborateurs['metteur en scène'] as $metteurEnScene)
+        {{ $metteurEnScene->firstname }}
+        {{ $metteurEnScene->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
+        @endforeach
+        </p>
+        @endif
+        <p><strong>Acteur : </strong>
+        @if (isset($collaborateurs['acteur']))
+
+        @foreach($collaborateurs['acteur'] as $acteur)
+        {{ $acteur->firstname }}
+        {{ $acteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
+        @endforeach
+        </p>
+        @endif
+        <p><strong>Chanteur : </strong>
+        @if (isset($collaborateurs['chanteur']))
+
+        @foreach($collaborateurs['chanteur'] as $chanteur)
+        {{ $chanteur->firstname }}
+        {{ $chanteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
+        @endforeach
+        </p>
+        @endif
+        <p><strong>Technicien : </strong>
+        @if (isset($collaborateurs['technicien']))
+
+        @foreach($collaborateurs['technicien'] as $technicien)
+        {{ $technicien->firstname }}
+        {{ $technicien->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
+        @endforeach
+        </p>
+        @endif
+       
+
+        {{--<ul>
+            @foreach($show->artistTypes as $collaborateur)
+            <li>
+                {{ $collaborateur->artist->firstname }}
+                {{ $collaborateur->artist->lastname }}
+                ({{ $collaborateur->type->type }})
+            </li>
+            @endforeach
+        </ul>--}}
     </article>
 
     <nav><a href="{{ route('show.index') }}">Retour à l'index</a></nav>
