@@ -31,4 +31,8 @@ class Show extends Model
     public function representations(){
         return $this->hasMany(Representation::class);
     }
+
+    public function artistTypes(){
+        return $this->belongsToMany(ArtistType::class);
+    }
 }

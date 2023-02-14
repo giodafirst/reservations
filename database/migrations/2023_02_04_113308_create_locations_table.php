@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('slug',60)->unique();
             $table->string('designation',60);
             $table->string('address');
-            $table->string('website');
-            $table->string('phone',30);
+            $table->string('website')->nullable();
+            $table->string('phone',30)->nullable();
             $table->foreignId('locality_id'); //Foreign key...champ est créé mais n'indique pas qui à la clef étrangère
             
             //Foreign key
