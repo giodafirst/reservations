@@ -32,7 +32,7 @@ class ArtistController extends Controller
     public function create()
     {
         if(!Gate::allows('create-artist')){
-            abort(403);
+            abort(403, 'Access denied');
         };
         return view('artist.create');
     }
@@ -89,7 +89,7 @@ class ArtistController extends Controller
         $artist = Artist::find($id);
 
         if(!Gate::allows('create-artist')){
-            abort(403);
+            abort(403, 'Access denied');
         };
 
         return view('artist.edit',[
@@ -134,7 +134,7 @@ class ArtistController extends Controller
         $artist = Artist::find($id);
 
         if(!Gate::allows('create-artist')){
-            abort(403);
+            abort(403, 'Access denied');
         };
 
         if($artist){
