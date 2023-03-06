@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Representation;
+use App\Models\Show;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 
 class RepresentationController extends Controller
@@ -16,13 +19,23 @@ class RepresentationController extends Controller
      */
     public function index()
     {
-        $representations = Representation::all();
+        //$representations = Representation::all();
+
+        $representations = DB::table('shows')
+        ->join('representations', 'shows.id', '=', 'representations.show_id')
+        ->join('locations', 'representations.location_id', '=', 'locations.id')
+        ->select('shows.title', 'representations.when', 'locations.designation')
+        ->orderBy('shows.title')
+        ->paginate(10);
+    
+    
 
         return view('representation.index',[
             'representations' => $representations,
             'resource' => 'représentations',
 
         ]);
+        
     }
 
     /**
@@ -99,4 +112,37 @@ class RepresentationController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $date = $request->input('date');
+        if (!empty($date)) {
+            $date = date('Y-m-d', strtotime($date));
+        }
+        
+        $representations = DB::table('representations')
+        ->join('shows', 'representations.show_id', '=', 'shows.id')
+        ->join('locations', 'representations.location_id', '=', 'locations.id')
+        ->when(!empty($query), function ($queryBuilder) use ($query) {
+            return $queryBuilder->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('shows.title', 'LIKE', "%$query%")
+                    ->orWhere('locations.designation', 'LIKE', "%$query%");
+            });
+        })
+        ->when(!empty($date), function ($queryBuilder) use ($date) {
+            return $queryBuilder->whereDate('representations.when', $date);
+        })
+        ->orderBy('shows.title')
+        ->paginate(10);
+
+        return view('representation.index', [
+            'representations' => $representations,
+            'resource' => 'représentations',
+            ]
+            );
+    }
+
+        
 }
+

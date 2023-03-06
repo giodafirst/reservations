@@ -4,16 +4,26 @@
 
 @section('content')
     <h1>Liste des {{ $resource }}</h1>
+    <h2>Recherche par titre, mot-clef ou par date</h2>
+
+    <form action="{{ route('representation.search') }}" method="GET">
+        <input type="text" name="query" placeholder="Recherche...">
+        <input type="date" name="date">
+        <button type="submit">Rechercher</button>
+    </form>
+
    
     <ul>
             @foreach($representations as $representation)
-                <li><a href="{{ route('representation.show', $representation->id) }}">{{ $representation->show->title }}</a>
+                <li>{{ $representation->title }}
 
-                @if($representation->location)
-                    - <span>{{ $representation->location->designation }}</span>
-                @endif
-                    - <datetime>{{ substr($representation->when,0,-3) }}</datetime>
+                    - <span>{{ $representation->designation }}</span>
+                    - <datetime>{{ date('d/m/Y H:i:s', strtotime($representation->when)) }}</datetime>
+
                 </li>
             @endforeach
+
+            
+
     </ul>
 @endsection
