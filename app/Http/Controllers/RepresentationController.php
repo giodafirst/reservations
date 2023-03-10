@@ -116,6 +116,13 @@ class RepresentationController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
+        
+        if ($request->has('filterBy')) {
+            $orderBy = $request->input('filterBy');
+        } else {
+            $orderBy = "shows.title";
+        }
+        
         $date = $request->input('date');
         if (!empty($date)) {
             $date = date('Y-m-d', strtotime($date));
@@ -133,9 +140,9 @@ class RepresentationController extends Controller
         ->when(!empty($date), function ($queryBuilder) use ($date) {
             return $queryBuilder->whereDate('representations.when', $date);
         })
-        ->orderBy('shows.title')
+        ->orderBy("$orderBy")
         ->paginate(10);
-
+        //dump($representations);
         return view('representation.index', [
             'representations' => $representations,
             'resource' => 'représentations',
@@ -143,6 +150,6 @@ class RepresentationController extends Controller
             );
     }
 
-        
+
 }
 
