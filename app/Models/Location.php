@@ -34,4 +34,5 @@ class Location extends Model
     public function representations(){
         return $this->hasMany(Representation::class);
     }
+    
 }
