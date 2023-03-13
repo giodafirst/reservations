@@ -3,7 +3,7 @@
 @section('title','Liste des représentations')
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
+    <h1 class="text-xl">Liste des {{ $resource }}</h1>
     <h2>Recherche par titre, mot-clef ou par date</h2>
 
     <form action="{{ route('representation.search') }}" method="GET">
@@ -26,4 +26,6 @@
             
 
     </ul>
+    
+    <div class="flex items-center">{{ $representations->links() }}</div>
 @endsection

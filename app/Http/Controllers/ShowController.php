@@ -17,15 +17,6 @@ class ShowController extends Controller
     {
         $shows = Show::all();
 
-        $representations = DB::table('representations')
-        ->select('representations.id', 'shows.title', 'locations.designation', 'localities.postal_code', 'localities.locality', 'representations.when')
-        ->join('shows', 'representations.show_id', '=', 'shows.id')
-        ->join('locations', 'representations.location_id', '=', 'locations.id')
-        ->join('localities', 'locations.locality_id', '=', 'localities.id')
-        ->orderBy('representations.when')
-        ->paginate(10);
-
-
         $bookableshows = DB::select('SELECT * FROM `shows` WHERE bookable = 1');
 
         $bookableshowsunder9 = DB::select('SELECT * FROM `shows` WHERE bookable AND price < 9');
@@ -61,7 +52,6 @@ class ShowController extends Controller
 
         return view('show.index',[
             'shows'=>$shows,
-            'representations'=>$representations,
             'bookableshows'=>$bookableshows,
             'bookableshowsunder9'=>$bookableshowsunder9,
             'bookableshowsbetween9and25'=>$bookableshowsbetween9and25,
