@@ -7,11 +7,13 @@ use App\Models\Representation;
 use App\Models\Show;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 
 
 
 class RepresentationController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +21,7 @@ class RepresentationController extends Controller
      */
     public function index()
     {
+        App::setLocale('fr');
         //$representations = Representation::all();
 
         $representations = DB::table('shows')
@@ -115,6 +118,9 @@ class RepresentationController extends Controller
 
     public function search(Request $request)
     {
+
+        App::setLocale('fr');
+
         $query = $request->input('query');
         
         if ($request->has('filterBy')) {
@@ -140,9 +146,11 @@ class RepresentationController extends Controller
         ->when(!empty($date), function ($queryBuilder) use ($date) {
             return $queryBuilder->whereDate('representations.when', $date);
         })
-        ->orderBy("$orderBy")
-        ->paginate(10);
-        //dump($representations);
+
+        ->orderBy('shows.title')
+        ->paginate(2);
+
+
         return view('representation.index', [
             'representations' => $representations,
             'resource' => 'représentations',
