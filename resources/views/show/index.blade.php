@@ -9,6 +9,13 @@
     <form action="{{ route('show.search') }}" method="GET">
         <input type="text" name="query" placeholder="Recherche...">
         <input type="date" name="date">
+        <label for="filterBy">Trier par : </label>
+        <select name="filterBy" id="filterBy">
+            <option value="shows.title" selected>A->Z</option>
+            <option value="shows.location_id">Commune</option>
+            <option value="shows.bookable">reservable</option>
+            <option value="price">Prix</option>
+        </select>
         <button type="submit">Rechercher</button>
     </form>
 
