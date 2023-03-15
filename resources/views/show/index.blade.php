@@ -1,3 +1,5 @@
+
+
 @extends('layouts.main')
 
 @section('title','Liste des spectacles')
@@ -18,14 +20,13 @@
         </select>
         <button type="submit">Rechercher</button>
     </form>
-
     <ul>
             @foreach($shows as $show)
-                <li><a href="{{ route('show.show', $show->id) }}">{{ $show->title }}</a>
+                <li><a href="{{ route('show.show', $show->id) }}">{{ $show->title }}</a></li>
                 @if($show->poster_url)
-                <a href="{{ route('show.show', $show->id) }}"><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></a>
+                <li><a href="{{ route('show.show', $show->id) }}"><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></a></li>
                 @else
-                <a href="{{ route('show.show', $show->id) }}"><canvas width="200" height="100" style="border:1px solid #000000;"></canvas></a>
+                <li><a href="{{ route('show.show', $show->id) }}"><canvas width="200" height="100" style="border:1px solid #000000;"></canvas></a></li>
                 @endif
                     {{--@if($show->bookable)
                         <span>{{ $show->price }}€</span>
@@ -38,7 +39,6 @@
                     @else
                     - <em>aucune représentation</em>
                     @endif--}}
-                </li>
             @endforeach
     </ul>
 

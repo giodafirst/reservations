@@ -162,11 +162,9 @@ class ShowController extends Controller
     public function search(Request $request)
     {
     App::setLocale('fr');
-    if ($request->has('filterBy')) {
-        $orderBy = $request->input('filterBy');
-    } else {
-        $orderBy = "shows.title";
-    }
+
+    $orderBy = $request->has('filterBy') ? $request->input('filterBy') : "shows.title";
+
     $query = $request->input('query');
     $date = $request->input('date');
     if (!empty($date)) {
