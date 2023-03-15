@@ -31,7 +31,7 @@
             <ul>
                 @foreach($show->representations as $representation)
                 <li>
-                    {{ $representation->when }}
+                    <datetime>{{ date('d/m/Y H:i:s', strtotime($representation->when)) }}</datetime>
                     @if($representation->location)
                     ({{ $representation->location->designation }})
                     @elseif($representation->show->location)
@@ -104,5 +104,5 @@
         </ul>--}}
     </article>
 
-    <nav><a href="{{ route('show.index') }}">Retour à l'index</a></nav>
+    {{--<nav><a href="{{ route('show.index') }}">Retour à l'index</a></nav>--}}
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 
 class ShowController extends Controller
 {
@@ -15,8 +16,13 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $shows = Show::all();
-
+        $shows = DB::table('shows')
+        ->join('representations', 'shows.id', '=', 'representations.show_id')
+        ->select('shows.id', 'shows.title', 'shows.description', 'shows.poster_url', 'shows.bookable', 'shows.price', 'shows.location_id', 'shows.created_at', 'shows.updated_at')
+        ->distinct()
+        ->orderBy('shows.title', 'asc')
+        ->paginate(2);
+/*
         $bookableshows = DB::select('SELECT * FROM `shows` WHERE bookable = 1');
 
         $bookableshowsunder9 = DB::select('SELECT * FROM `shows` WHERE bookable AND price < 9');
@@ -48,19 +54,13 @@ class ShowController extends Controller
         ->havingRaw('COUNT(artist_type.id) = 1')
         ->get();
 
-
+*/
 
         return view('show.index',[
             'shows'=>$shows,
-            'bookableshows'=>$bookableshows,
-            'bookableshowsunder9'=>$bookableshowsunder9,
-            'bookableshowsbetween9and25'=>$bookableshowsbetween9and25,
-            'showsfromlasamaritaine'=>$showsfromlasamaritaine,
-            'brusselsShows'=>$brusselsShows,
-            'marcelinShows'=>$marcelinShows,
-            'singleActorShows'=>$singleActorShows,
+            
             'resource'=>'spectacles',
-            'resource1'=>'Catalogue des représentations',
+            /*'resource1'=>'Catalogue des représentations',
             'resource2'=>'spectacles réservables',
             'resource3'=>'spectacles réservables en-dessous de 9 euro',
             'resource4'=>'spectacles réservables entre 9 euro et 25 euro',
@@ -68,6 +68,13 @@ class ShowController extends Controller
             'resource6'=>'spectacles créés à Bruxelles',
             'resource7'=>'spectacles mis en scène par Daniel Marcelin',
             'resource8'=>'spectacles avec un seul acteur',
+            'bookableshows'=>$bookableshows,
+            'bookableshowsunder9'=>$bookableshowsunder9,
+            'bookableshowsbetween9and25'=>$bookableshowsbetween9and25,
+            'showsfromlasamaritaine'=>$showsfromlasamaritaine,
+            'brusselsShows'=>$brusselsShows,
+            'marcelinShows'=>$marcelinShows,
+            'singleActorShows'=>$singleActorShows,*/
 
 
         ]);
@@ -151,4 +158,37 @@ class ShowController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+    App::setLocale('fr');
+
+    $query = $request->input('query');
+    $date = $request->input('date');
+    if (!empty($date)) {
+        $date = date('Y-m-d', strtotime($date));
+    }
+
+    $shows = DB::table('shows')
+        ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation')
+        ->join('locations', 'shows.location_id', '=', 'locations.id')
+        ->leftJoin('representations', 'shows.id', '=', 'representations.show_id')
+        ->when(!empty($query), function ($queryBuilder) use ($query) {
+            return $queryBuilder->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('shows.title', 'LIKE', "%$query%")
+                    ->orWhere('locations.designation', 'LIKE', "%$query%");
+            });
+        })
+        ->when(!empty($date), function ($queryBuilder) use ($date) {
+            return $queryBuilder->whereDate('representations.when', $date);
+        })
+        ->orderBy('shows.title')
+        ->paginate(2);
+
+    return view('show.index', [
+        'shows' => $shows,
+        'resource' => 'spectacles',
+    ]);
+}
+
 }
