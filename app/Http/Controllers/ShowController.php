@@ -163,11 +163,15 @@ class ShowController extends Controller
     {
     App::setLocale('fr');
 
+    $orderBy = $request->has('filterBy') ? $request->input('filterBy') : "shows.title";
+
     $query = $request->input('query');
     $date = $request->input('date');
     if (!empty($date)) {
         $date = date('Y-m-d', strtotime($date));
     }
+
+
 
     $shows = DB::table('shows')
         ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable')
@@ -182,10 +186,10 @@ class ShowController extends Controller
         ->when(!empty($date), function ($queryBuilder) use ($date) {
             return $queryBuilder->whereDate('representations.when', $date);
         })
-        ->orderBy('shows.title')
+        ->orderBy("$orderBy")
         ->paginate(2);
         
-        dump($shows);
+        //dd($orderBy);
 
     return view('show.index', [
         'shows' => $shows,
