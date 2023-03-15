@@ -9,6 +9,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,17 @@ Route::get('/show/{id}',[ShowController::class, 'show'])->where('id','[0-9]+')->
 Route::get('/representation',[RepresentationController::class, 'index'])->name('representation.index');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
 Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
+Route::get('/show', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
+Route::post('/language/switch', function (Illuminate\Http\Request $request) {
+    $locale = $request->input('language');
+    if (in_array($locale, config('app.locales'))) {
+      app()->setLocale($locale);
+    }
+    return back();
+  })->name('language.switch')->middleware('web');
+  
+
+
 
 
 

@@ -4,11 +4,23 @@
 
 @section('content')
     <h1>Liste des {{ $resource }}</h1>
-   
+    <h2>Recherche par titre, mot-clef ou par date</h2>
+
+    <form action="{{ route('show.search') }}" method="GET">
+        <input type="text" name="query" placeholder="Recherche...">
+        <input type="date" name="date">
+        <button type="submit">Rechercher</button>
+    </form>
+
     <ul>
             @foreach($shows as $show)
                 <li><a href="{{ route('show.show', $show->id) }}">{{ $show->title }}</a>
-                    @if($show->bookable)
+                @if($show->poster_url)
+                <a href="{{ route('show.show', $show->id) }}"><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></a>
+                @else
+                <a href="{{ route('show.show', $show->id) }}"><canvas width="200" height="100" style="border:1px solid #000000;"></canvas></a>
+                @endif
+                    {{--@if($show->bookable)
                         <span>{{ $show->price }}€</span>
                     @endif
 
@@ -18,11 +30,14 @@
                     - <span>{{ $show->representations->count() }} représentations</span>
                     @else
                     - <em>aucune représentation</em>
-                    @endif
+                    @endif--}}
                 </li>
             @endforeach
     </ul>
-    <h2>Liste des {{ $resource2 }}</h2>
+
+    <div class="flex items-center">{{ $shows->links() }}</div>
+
+    {{--<h2>Liste des {{ $resource2 }}</h2>
     <ul>
         @foreach($bookableshows as $bookableshow)
         <li>{{ $bookableshow->title }}</li>
@@ -87,7 +102,7 @@
     </ul>
     @else
     <p>Pas trouvé de spectacle</p>
-    @endif
+    @endif--}}
     {{-- test --}}
     {{-- test --}}
 @endsection
