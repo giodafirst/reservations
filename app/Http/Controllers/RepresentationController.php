@@ -121,6 +121,13 @@ class RepresentationController extends Controller
         App::setLocale('fr');
 
         $query = $request->input('query');
+        
+        if ($request->has('filterBy')) {
+            $orderBy = $request->input('filterBy');
+        } else {
+            $orderBy = "shows.title";
+        }
+        
         $date = $request->input('date');
         if (!empty($date)) {
             $date = date('Y-m-d', strtotime($date));
@@ -138,8 +145,10 @@ class RepresentationController extends Controller
         ->when(!empty($date), function ($queryBuilder) use ($date) {
             return $queryBuilder->whereDate('representations.when', $date);
         })
+
         ->orderBy('shows.title')
         ->paginate(2);
+
 
         return view('representation.index', [
             'representations' => $representations,
@@ -148,6 +157,6 @@ class RepresentationController extends Controller
             );
     }
 
-        
+
 }
 

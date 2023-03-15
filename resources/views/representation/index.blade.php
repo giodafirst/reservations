@@ -10,15 +10,24 @@
         <input type="text" name="query" placeholder="Recherche...">
         <input type="date" name="date">
         <button type="submit">Rechercher</button>
+    {{-- </form>
+    <form action="{{ route('representation.order') }}" method="get"> --}}
+        <label for="filterBy">Filtrer par : </label>
+        <select name="filterBy" id="filterBy">
+            <option value="shows.title" selected>A->Z</option>
+            <option value="shows.location_id">Commune</option>
+            <option value="when">Date</option>
+            <option value="price">Prix</option>
+        </select>
     </form>
-
    
     <ul>
             @foreach($representations as $representation)
                 <li>{{ $representation->title }}
 
                     - <span>{{ $representation->designation }}</span>
-                    - <datetime>{{ date('d/m/Y H:i:s', strtotime($representation->when)) }}</datetime>
+                    - <datetime>{{ date('d/m/Y H:i', strtotime($representation->when)) }}</datetime>
+                    - <span>{{ $representation->price }}</span>
 
                 </li>
             @endforeach

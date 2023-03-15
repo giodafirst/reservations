@@ -54,6 +54,7 @@ Route::get('/location/{id}',[LocationController::class, 'show'])->where('id','[0
 Route::get('/show',[ShowController::class, 'index'])->name('show.index');
 Route::get('/show/{id}',[ShowController::class, 'show'])->where('id','[0-9]+')->name('show.show');
 Route::get('/representation',[RepresentationController::class, 'index'])->name('representation.index');
+Route::get('/representation',[RepresentationController::class, 'filter'])->name('representation.filter');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
 Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
 Route::get('/show', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
