@@ -170,7 +170,7 @@ class ShowController extends Controller
     }
 
     $shows = DB::table('shows')
-        ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation')
+        ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable')
         ->join('locations', 'shows.location_id', '=', 'locations.id')
         ->leftJoin('representations', 'shows.id', '=', 'representations.show_id')
         ->when(!empty($query), function ($queryBuilder) use ($query) {
@@ -184,6 +184,8 @@ class ShowController extends Controller
         })
         ->orderBy('shows.title')
         ->paginate(2);
+        
+        dump($shows);
 
     return view('show.index', [
         'shows' => $shows,
