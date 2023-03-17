@@ -5,28 +5,28 @@
 @section('title','Liste des spectacles')
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
-    <h2>Recherche par titre, mot-clef ou par date</h2>
+    <h1>{{ __('Shows') }}</h1>
+    <h2>{{ __('Search') }}</h2>
 
     <form action="{{ route('show.search') }}" method="GET">
-        <input type="text" name="query" placeholder="Recherche...">
+        <input type="text" name="query" placeholder="{{ __('Search') }}...">
         <input type="date" name="date">
-        <label for="filterBy">Trier par : </label>
-        <select name="filterBy" id="filterBy">
+        <label for="sortBy">{{ __('Sort') }} : </label>
+        <select name="sortBy" id="sortBy">
             <option value="shows.title" selected>A->Z</option>
-            <option value="shows.location_id">Commune</option>
-            <option value="shows.bookable">reservable</option>
-            <option value="price">Prix</option>
+            <option value="shows.location_id">{{ __('Locality') }}</option>
+            <option value="shows.bookable">{{ __('Bookable') }}</option>
+            <option value="price">{{ __('Price') }}</option>
         </select>
-        <button type="submit">Rechercher</button>
+        <button type="submit">{{ __('Search') }}</button>
     </form>
     <ul>
             @foreach($shows as $show)
                 <li><a href="{{ route('show.show', $show->id) }}">{{ $show->title }}</a></li>
                 @if($show->poster_url)
-                <li><a href="{{ route('show.show', $show->id) }}"><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></a></li>
+                <li><a href="{{ route('show.show', $show->id) }}" style="width:200px; display:inline-block;"><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></a></li>
                 @else
-                <li><a href="{{ route('show.show', $show->id) }}"><canvas width="200" height="100" style="border:1px solid #000000;"></canvas></a></li>
+                <li><a href="{{ route('show.show', $show->id) }}" style="width:200px; display:inline-block;"><canvas width="200" height="100" style="border:1px solid #000000;"></canvas></a></li>
                 @endif
                     {{--@if($show->bookable)
                         <span>{{ $show->price }}€</span>

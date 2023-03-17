@@ -5,12 +5,13 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocalityController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\LocalizationMiddleware;
 use Illuminate\Support\Facades\App;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\App;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,17 +60,21 @@ Route::get('/representation',[RepresentationController::class, 'filter'])->name(
 Route::get('/show',[ShowController::class, 'index'])->name('show.index');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
 Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
-Route::get('/show', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
+Route::get('/show/search', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
 Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     $locale = $request->input('language');
     if (in_array($locale, config('app.locales'))) {
-      app()->setLocale($locale);
+        session()->put('locale', $locale);
+        app()->setLocale($locale);
     }
     return back();
-  })->name('language.switch')->middleware('web');
-  
+})->name('language.switch')->middleware('web');
+Route::feeds();
+Route::get('/rss', function () {
+    return view('/rss.rss');
+});
 
-
+//Route::get("locale/{lang}",[LocalizationController::class, 'setLang']);
 
 
 

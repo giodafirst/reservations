@@ -13,9 +13,9 @@
         <div class="w-3/4">
             @yield('content')
         </div>
-        <form class="w-1/4 ml-auto" action="{{ route('language.switch') }}" method="POST">
+        <form class="w-1/4 ml-auto" action="{{ route('language.switch')}}" method="POST">
             @csrf
-            <label for="language">Langue :</label>
+            <label for="language">{{ __('Language') }} :</label>
             <select name="language" id="language">
                 @foreach(config('app.locales') as $locale)
                 <option value="{{ $locale }}" {{ app()->getLocale() === $locale ? 'selected' : '' }}>
@@ -23,6 +23,7 @@
                 </option>
                 @endforeach
             </select>
+            <button type="submit">{{ __('Search') }}</button>
         </form>
 
     </div>
