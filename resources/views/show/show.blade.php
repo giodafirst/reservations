@@ -104,5 +104,5 @@
         </ul>--}}
     </article>
 
-    <nav><a href="{{ url()->previous() }}">{{ __('Back') }}</a></nav>
+    <nav><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Back') }}</a></nav>
 @endsection
