@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Locality;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,7 @@ class ShowController extends Controller
         ->distinct()
         ->orderBy('shows.title', 'asc')
         ->paginate(2);
+        $localities = Locality::all();
 /*
         $bookableshows = DB::select('SELECT * FROM `shows` WHERE bookable = 1');
 
@@ -59,7 +61,7 @@ class ShowController extends Controller
 
         return view('show.index',[
             'shows'=>$shows,
-            
+            'localities' => $localities,
             'resource'=>'spectacles',
             /*'resource1'=>'Catalogue des représentations',
             'resource2'=>'spectacles réservables',
@@ -162,6 +164,9 @@ class ShowController extends Controller
 
     public function search(Request $request)
     {
+    $localities = Locality::all();
+    $postal_code = $request->input('postal_code') == "none" ? null : $request->input('postal_code');
+    $reservable = $request->input('reservable');
 
     $orderBy = $request->has('sortBy') ? $request->input('sortBy') : "shows.title";
 
@@ -175,13 +180,14 @@ class ShowController extends Controller
     } else {
         echo "La clé 'locale' n'existe pas dans la session";
     }*/
-    
+
 
 
 
     $shows = DB::table('shows')
         ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable')
         ->join('locations', 'shows.location_id', '=', 'locations.id')
+        ->join('localities', 'locality_id', '=', 'localities.id')
         ->leftJoin('representations', 'shows.id', '=', 'representations.show_id')
         ->when(!empty($query), function ($queryBuilder) use ($query) {
             return $queryBuilder->where(function ($queryBuilder) use ($query) {
@@ -192,12 +198,23 @@ class ShowController extends Controller
         ->when(!empty($date), function ($queryBuilder) use ($date) {
             return $queryBuilder->whereDate('representations.when', $date);
         })
+        ->when(!empty($postal_code), function ($queryBuilder) use ($postal_code) {
+            return $queryBuilder->where(function ($queryBuilder) use ($postal_code) {
+                $queryBuilder->where('localities.postal_code', '=', $postal_code);
+            });
+        })
+        ->when(!empty($reservable), function ($queryBuilder) use ($reservable) {
+            return $queryBuilder->where(function ($queryBuilder) use ($reservable) {
+                $queryBuilder->where('shows.bookable', '=', 1);
+            });
+        })
         ->orderBy("$orderBy")
         ->paginate(2);
 
     return view('show.index', [
         'shows' => $shows,
         'resource' => 'spectacles',
+        'localities' => $localities
     ]);
 }
 

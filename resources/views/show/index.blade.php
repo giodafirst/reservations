@@ -18,6 +18,17 @@
             <option value="shows.bookable">{{ __('Bookable') }}</option>
             <option value="price">{{ __('Price') }}</option>
         </select>
+        <label for="sort">Par commune :</label>
+        <select name="postal_code" id="sort">
+            <option value="none" selected>-----</option>
+            @foreach($localities as $locality)
+                <option value="{{$locality->postal_code}}">{{$locality->postal_code}}</option>
+            @endforeach
+        </select>
+
+        <input type="checkbox" name="reservable" id="reservable">
+        <label for="reservable">Reservable |</label>
+
         <button type="submit">{{ __('Search') }}</button>
     </form>
     <ul>
