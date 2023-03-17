@@ -13,19 +13,19 @@
         @endif
 
         @if($show->location)
-        <p><strong>Lieu de création : </strong>{{ $show->location->designation }}</p>
+        <p><strong>{{ __('Location') }} : </strong>{{ $show->location->designation }}</p>
         {{-- dd($show->location) --}}
         @endif
 
-        <p><strong>Prix : </strong>{{ $show->price }}€</p>
+        <p><strong>{{ __('Price') }} : </strong>{{ $show->price }}€</p>
 
         @if($show->bookable)
-        <p><em>Réservable</em></p>
+        <p><em>{{ __('Bookable') }}</em></p>
         @else
-        <p><em>Non réservable</em></p>
+        <p><em>{{ __('NonBookable') }}</em></p>
         @endif
 
-        <h2>Liste des représentations</h2>
+        <h2>{{ __('Representations') }}</h2>
 
         @if($show->representations->count()>=1)
             <ul>
@@ -43,11 +43,11 @@
                 @endforeach
             </ul>
         @else
-        <p>Aucune représentation</p>
+        <p>{{ __('NoRepresentation') }}</p>
         @endif
 
-        <h2>Liste des artistes</h2>
-        <p><strong>Producteur : </strong>
+        <h2>{{ __('Artists') }}</h2>
+        <p><strong>{{ __('Producer') }} : </strong>
         @if (isset($collaborateurs['producteur']))
         @foreach($collaborateurs['producteur'] as $producteur)
         {{ $producteur->firstname }}
@@ -55,7 +55,7 @@
         @endforeach
         </p>
         @endif
-        <p><strong>Metteur en scène : </strong>
+        <p><strong>{{ __('Director') }} : </strong>
         @if (isset($collaborateurs['metteur en scène']))
 
         @foreach($collaborateurs['metteur en scène'] as $metteurEnScene)
@@ -64,7 +64,7 @@
         @endforeach
         </p>
         @endif
-        <p><strong>Acteur : </strong>
+        <p><strong>{{ __('Actor') }} : </strong>
         @if (isset($collaborateurs['acteur']))
 
         @foreach($collaborateurs['acteur'] as $acteur)
@@ -73,7 +73,7 @@
         @endforeach
         </p>
         @endif
-        <p><strong>Chanteur : </strong>
+        <p><strong>{{ __('Singer') }} : </strong>
         @if (isset($collaborateurs['chanteur']))
 
         @foreach($collaborateurs['chanteur'] as $chanteur)
@@ -82,7 +82,7 @@
         @endforeach
         </p>
         @endif
-        <p><strong>Technicien : </strong>
+        <p><strong>{{ __('Technician') }} : </strong>
         @if (isset($collaborateurs['technicien']))
 
         @foreach($collaborateurs['technicien'] as $technicien)
@@ -104,5 +104,5 @@
         </ul>--}}
     </article>
 
-    <nav><a href="{{ url()->previous() }}">Retour à l'index</a></nav>
+    <nav><a href="{{ url()->previous() }}">{{ __('Back') }}</a></nav>
 @endsection

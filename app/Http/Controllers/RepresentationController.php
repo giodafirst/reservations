@@ -20,7 +20,7 @@ class RepresentationController extends Controller
      */
     public function index()
     {
-        App::setLocale('fr');
+        //App::setLocale('fr');
         //$representations = Representation::all();
 
         $representations = DB::table('shows')
@@ -118,7 +118,7 @@ class RepresentationController extends Controller
     public function search(Request $request)
     {
 
-        App::setLocale('fr');
+        //App::setLocale('fr');
 
         $query = $request->input('query');
         

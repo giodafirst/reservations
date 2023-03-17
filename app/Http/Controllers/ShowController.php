@@ -7,6 +7,7 @@ use App\Models\Show;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 
+
 class ShowController extends Controller
 {
     /**
@@ -161,15 +162,20 @@ class ShowController extends Controller
 
     public function search(Request $request)
     {
-    App::setLocale('fr');
 
-    $orderBy = $request->has('filterBy') ? $request->input('filterBy') : "shows.title";
+    $orderBy = $request->has('sortBy') ? $request->input('sortBy') : "shows.title";
 
     $query = $request->input('query');
     $date = $request->input('date');
     if (!empty($date)) {
         $date = date('Y-m-d', strtotime($date));
     }
+    /*if (session()->has('locale')) {
+        echo "La clé 'locale' existe dans la session avec la valeur " . session('locale');
+    } else {
+        echo "La clé 'locale' n'existe pas dans la session";
+    }*/
+    
 
 
 
@@ -188,8 +194,6 @@ class ShowController extends Controller
         })
         ->orderBy("$orderBy")
         ->paginate(2);
-        
-        //dd($orderBy);
 
     return view('show.index', [
         'shows' => $shows,
