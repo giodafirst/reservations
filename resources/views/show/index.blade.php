@@ -18,7 +18,7 @@
             <option value="shows.bookable">{{ __('Bookable') }}</option>
             <option value="price">{{ __('Price') }}</option>
         </select>
-        <label for="sort">Par commune :</label>
+        <label for="sort">{{ __('ByLocality') }} :</label>
         <select name="postal_code" id="sort">
             <option value="none" selected>-----</option>
             @foreach($localities as $locality)
@@ -27,7 +27,7 @@
         </select>
 
         <input type="checkbox" name="reservable" id="reservable">
-        <label for="reservable">Reservable |</label>
+        <label for="reservable">{{ __('Bookable') }} |</label>
 
         <button type="submit">{{ __('Search') }}</button>
     </form>
