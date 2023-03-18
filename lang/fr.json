@@ -20,5 +20,6 @@
     "Actor" : "Acteur",
     "Singer" : "Chanteur",
     "Technician" : "Technicien",
-    "Back" : "Retour à l'index"
+    "Back" : "Retour à l'index",
+    "ByLocality" : "Par commune"
 }

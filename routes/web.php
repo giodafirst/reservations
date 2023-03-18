@@ -70,9 +70,7 @@ Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     return back();
 })->name('language.switch')->middleware('web');
 Route::feeds();
-Route::get('/rss', function () {
-    return view('/rss.rss');
-});
+
 
 //Route::get("locale/{lang}",[LocalizationController::class, 'setLang']);
 

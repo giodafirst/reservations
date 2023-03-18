@@ -20,5 +20,6 @@
     "Actor" : "Actor",
     "Singer" : "Singer",
     "Technician" : "Technician",
-    "Back" : "Back to index"
+    "Back" : "Back to index",
+    "ByLocality" : "By locality"
  }

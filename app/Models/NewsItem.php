@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
 use App\Models\Show;
+use Carbon\Carbon;
 
 
 class NewsItem extends Show implements Feedable
@@ -19,10 +20,10 @@ class NewsItem extends Show implements Feedable
             ->id($this->id)
             ->title($this->title)
             ->summary($this->description)
-            ->updated($this->updated_at)
-            ->link($this->link)
-            ->authorName($this->author)
-            ->authorEmail($this->authorEmail);
+            ->updated(Carbon::now())
+            ->link('show/'.$this->id)
+            ->authorName('Serge')
+            ->authorEmail('serge.boniver@gmail.com');
     }
 
     // app/NewsItem.php
