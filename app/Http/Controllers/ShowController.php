@@ -168,7 +168,6 @@ class ShowController extends Controller
     $postal_code = $request->input('postal_code') == "none" ? null : $request->input('postal_code');
     $reservable = $request->input('reservable');
 
-    $orderBy = $request->has('sortBy') ? $request->input('sortBy') : "shows.title";
 
     $query = $request->input('query');
     $date = $request->input('date');
@@ -185,7 +184,7 @@ class ShowController extends Controller
 
 
     $shows = DB::table('shows')
-        ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable')
+        ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable', 'locations.locality_id', 'shows.price')
         ->join('locations', 'shows.location_id', '=', 'locations.id')
         ->join('localities', 'locality_id', '=', 'localities.id')
         ->leftJoin('representations', 'shows.id', '=', 'representations.show_id')
@@ -208,14 +207,52 @@ class ShowController extends Controller
                 $queryBuilder->where('shows.bookable', '=', 1);
             });
         })
-        ->orderBy("$orderBy")
+        ->orderBy("shows.title")
         ->paginate(2);
+
 
     return view('show.index', [
         'shows' => $shows,
         'resource' => 'spectacles',
-        'localities' => $localities
+        'localities' => $localities,
     ]);
+}
+
+public function sort()
+{
+    
+    $sort = request()->query('sortBy');
+    $order = request()->query('order', 'asc');
+    // dd($order);
+    switch ($sort) {
+        case 'reservable':
+            $orderBy = 'shows.bookable';
+            break;
+        case 'zip':
+            $orderBy = 'shows.location_id';
+            break;
+        case 'prix':
+            $orderBy = 'shows.price';
+            break;
+        default:
+            $orderBy = 'shows.title';
+            break;
+            
+    }
+    $shows = DB::table('shows')
+    ->join('representations', 'shows.id', '=', 'representations.show_id')
+    ->select('shows.id', 'shows.title', 'shows.description', 'shows.poster_url', 'shows.bookable', 'shows.price', 'shows.location_id', 'shows.created_at', 'shows.updated_at')
+    ->distinct()
+    ->orderBy("$orderBy", "$order")
+    ->paginate(2);
+    $localities = Locality::all();
+
+    return view('show.index', [
+        'shows' => $shows,
+        'resource' => 'spectacles',
+        'localities' => $localities,
+    ]);
+
 }
 
 }

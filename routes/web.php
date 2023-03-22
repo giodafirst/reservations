@@ -61,6 +61,7 @@ Route::get('/show',[ShowController::class, 'index'])->name('show.index');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
 Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
 Route::get('/show/search', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
+Route::get('/show/sort', [ShowController::class, 'sort'])->where('id','[0-9]+')->name('show.sort');
 Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     $locale = $request->input('language');
     if (in_array($locale, config('app.locales'))) {
