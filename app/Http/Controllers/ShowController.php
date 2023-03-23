@@ -84,8 +84,12 @@ class ShowController extends Controller
         ]);
     }
 
-    public  function crud(){
-        return view('show.crud');
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public  function all(){
+        $shows = Show::all();
+        return view('show.all', ["shows" => $shows]);
     }
 
     /**
@@ -125,7 +129,7 @@ class ShowController extends Controller
             'location_id'=> $location_id,
         ]);
 
-        return view('show.create');
+        return to_route('show.all');
     }
 
     /**
