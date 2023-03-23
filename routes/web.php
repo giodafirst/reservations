@@ -77,6 +77,7 @@ Route::feeds();
 
 // CRUD DES SHOWS
 Route::controller(ShowController::class)->name('show.')->group(function(){
+    Route::get('/show/crud', 'crud')->name('crud');
     Route::get('/show/create', 'create')->name('create');
     Route::post('/show/store', 'store')->name('store');
 });

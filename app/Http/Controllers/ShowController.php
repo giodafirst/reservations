@@ -84,6 +84,10 @@ class ShowController extends Controller
         ]);
     }
 
+    public  function crud(){
+        return view('show.crud');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
