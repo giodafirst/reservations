@@ -18,6 +18,10 @@
             <th>Location</th>
             <th>Actions</th>
         </tr>
+        @if(isset($message))
+            <p> {{$message}} </p>
+        @endif
+
         @foreach($shows as $show)
             <tr>
                 <td>{{$show->title}}</td>
@@ -30,7 +34,14 @@
                 @endif
                 <td>{{$show->price}}€</td>
                 <td>{{$show->location->designation}}</td>
-                <td><a href="{{route('show.details')}}"> Details </a> | <a href="{{route('show.update')}}"> Update </a> | <a href="{{route('show.delete')}}"> Delete </a></td>
+                <td>
+                    <a href="{{route('show.details')}}"> Details </a> |
+                    <a href="{{route('show.update')}}"> Update </a> |
+                    <form action="{{route('show.delete', ["id" => $show->id])}}" method="post">
+                        @csrf
+                        <button>Delete</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </table>
