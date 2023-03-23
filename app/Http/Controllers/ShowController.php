@@ -84,8 +84,12 @@ class ShowController extends Controller
         ]);
     }
 
-    public  function crud(){
-        return view('show.crud');
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public  function all($message=""){
+        $shows = Show::all();
+        return view('show.all', ["shows" => $shows, 'message' => $message]);
     }
 
     /**
@@ -124,8 +128,8 @@ class ShowController extends Controller
             'poster_url'=> $poster_url,
             'location_id'=> $location_id,
         ]);
-
-        return view('show.create');
+        $message = "Show \"$title\" successfully created !";
+        return to_route('show.all', ["message"=>$message]);
     }
 
     /**
@@ -214,7 +218,10 @@ class ShowController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $show = Show::findOrFail($id);
+        $show->delete();
+        $message = "Show \"$show->title\" successfully deleted";
+        return to_route('show.all', ["message" => $message]);
     }
 
     public function search(Request $request)
@@ -234,9 +241,6 @@ class ShowController extends Controller
     } else {
         echo "La clé 'locale' n'existe pas dans la session";
     }*/
-
-
-
 
     $shows = DB::table('shows')
         ->select('shows.id', 'shows.title', 'shows.poster_url', 'locations.designation', 'shows.bookable', 'locations.locality_id', 'shows.price')
