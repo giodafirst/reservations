@@ -75,6 +75,11 @@ Route::feeds();
 
 //Route::get("locale/{lang}",[LocalizationController::class, 'setLang']);
 
+// CRUD DES SHOWS
+Route::controller(ShowController::class)->name('show.')->group(function(){
+    Route::get('/show/create', 'create')->name('create');
+    Route::post('/show/store', 'store')->name('store');
+});
 
 
 require __DIR__.'/auth.php';

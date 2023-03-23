@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Locality;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
@@ -90,7 +91,8 @@ class ShowController extends Controller
      */
     public function create()
     {
-        //
+        $locations = Location::all();
+        return view('show.create', ["locations" => $locations]);
     }
 
     /**
@@ -101,7 +103,56 @@ class ShowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->title;
+        $slug = $this->slugify($title);
+        $description = $request->description;
+        $price = $request->price;
+        $bookable= $request->has('bookable') ? 1 : 0;
+        $poster_url = $request->poster_url ;
+        $location_id = $request->location_id;
+
+        Show::create([
+            'title'=> $title,
+            'slug'=> $slug,
+            'description'=> $description,
+            'price'=> $price,
+            'bookable'=> $bookable,
+            'poster_url'=> $poster_url,
+            'location_id'=> $location_id,
+        ]);
+
+        return view('show.create');
+    }
+
+    /**
+     * @param $text
+     * @param string $divider
+     * @return string
+     */
+    public function slugify($text, string $divider = '-')
+    {
+        // replace non letter or digits by divider
+        $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, $divider);
+
+        // remove duplicate divider
+        $text = preg_replace('~-+~', $divider, $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+        return $text;
     }
 
     /**
@@ -220,7 +271,7 @@ class ShowController extends Controller
 
 public function sort()
 {
-    
+
     $sort = request()->query('sortBy');
     $order = request()->query('order', 'asc');
     // dd($order);
@@ -237,7 +288,7 @@ public function sort()
         default:
             $orderBy = 'shows.title';
             break;
-            
+
     }
     $shows = DB::table('shows')
     ->join('representations', 'shows.id', '=', 'representations.show_id')
