@@ -12,14 +12,15 @@ class Show extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
+        'price',
+        'bookable',
         'poster_url',
         'location_id',
-        'bookable',
-        'price',
     ];
 
-    protected $guarded = ['slug'];
+    protected $guarded = [ ];
 
     protected $table = 'shows';
 
