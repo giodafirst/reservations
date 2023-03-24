@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="flex">
-        
         <div class="w-3/4">
+            @include('partials.menu')
             @yield('content')
         </div>
         <form class="w-1/4 ml-auto" action="{{ route('language.switch')}}" method="POST">
@@ -28,7 +28,7 @@
         </form>
 
     </div>
-    
+
 
 
 </body>

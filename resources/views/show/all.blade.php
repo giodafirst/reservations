@@ -14,6 +14,7 @@
             padding: 5px;
             color:white;
             border-radius: 5px;
+            border: 1px solid black;
         }
         .button{
             padding: 5px;
@@ -41,7 +42,7 @@
             <th>Location</th>
             <th>Actions</th>
         </tr>
-        @if(isset($message))
+        @if(!empty($message))
             <p class="message" style="background-color: {{$color}}"> {{$message}} </p>
         @endif
 
@@ -67,7 +68,7 @@
                 <td>{{$show->location->designation}}</td>
                 <td>
                     <div><a class="button" style="background-color: blue" href="{{route('show.show', ['id' => $show->id])}}">Details</a></div>
-                    <div><a class="button" style="background-color: #d08700" href="{{route('show.update', ['id' => $show->id])}}">Update</a></div>
+                    <div><a class="button" style="background-color: #d08700" href="{{route('show.edit', ['id' => $show->id])}}">Update</a></div>
                     <form action="{{route('show.delete', ["id" => $show->id])}}" method="post">
                         @csrf
                         <button class="button" style="background-color: red">Delete</button>
@@ -77,6 +78,6 @@
         @endforeach
     </table>
     <div>
-        <a class="button" style="background-color: #7825c4" href="{{route('show.create')}}"> Create a new Show</a>
+        <a class="button" style="background-color: green" href="{{route('show.create')}}"> Create a new Show</a>
     </div>
 @endsection
