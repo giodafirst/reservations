@@ -5,13 +5,10 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocalityController;
-use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\RepresentationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\LocalizationMiddleware;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +21,6 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -39,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::get('/type',[TypeController::class, 'index'])->name('type.index');
 Route::get('/type/{id}',[TypeController::class, 'show'])->name('type.show');
 Route::get('/artist',[ArtistController::class, 'index'])->name('artist.index');
@@ -54,14 +46,10 @@ Route::get('/role',[RoleController::class, 'index'])->name('role.index');
 Route::get('/role/{id}',[RoleController::class, 'show'])->name('role.show');
 Route::get('/location',[LocationController::class, 'index'])->name('location.index');
 Route::get('/location/{id}',[LocationController::class, 'show'])->where('id','[0-9]+')->name('location.show');
-Route::get('/show/{id}',[ShowController::class, 'show'])->where('id','[0-9]+')->name('show.show');
 Route::get('/representation',[RepresentationController::class, 'index'])->name('representation.index');
 Route::get('/representation',[RepresentationController::class, 'filter'])->name('representation.filter');
-Route::get('/show',[ShowController::class, 'index'])->name('show.index');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
 Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
-Route::get('/show/search', [ShowController::class, 'search'])->where('id','[0-9]+')->name('show.search');
-Route::get('/show/sort', [ShowController::class, 'sort'])->where('id','[0-9]+')->name('show.sort');
 Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     $locale = $request->input('language');
     if (in_array($locale, config('app.locales'))) {
@@ -72,18 +60,21 @@ Route::post('/language/switch', function (Illuminate\Http\Request $request) {
 })->name('language.switch')->middleware('web');
 Route::feeds();
 
-
 //Route::get("locale/{lang}",[LocalizationController::class, 'setLang']);
 
-// CRUD DES SHOWS
+// SHOWS
 Route::controller(ShowController::class)->name('show.')->group(function(){
-    Route::get('/show/all/{message?}', 'all')->name('all');
+    Route::get('/', 'index')->name('index');
+    Route::get('/show', 'index')->name('index');
+    Route::get('/show/{id}', 'show')->where('id','[0-9]+')->name('show');
+    Route::get('/show/search', 'search')->where('id','[0-9]+')->name('search');
+    Route::get('/show/sort', 'sort')->where('id','[0-9]+')->name('sort');
+    Route::get('/show/all/{message?}/{color?}', 'all')->name('all');
     Route::get('/show/create', 'create')->name('create');
     Route::post('/show/store', 'store')->name('store');
     Route::get('/show/details', 'details')->name('details');
     Route::get('/show/update', 'update')->name('update');
     Route::post('/show/delete/{id}', 'destroy')->name('delete');
 });
-
 
 require __DIR__.'/auth.php';

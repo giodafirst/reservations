@@ -2,9 +2,25 @@
 
 @section('content')
 
+    <style>
+        body{
+            text-align: center;
+        }
+        .button{
+            padding: 5px;
+            color:white;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .button:hover{
+            color:silver;
+        }
+    </style>
     <h1> Create a new show</h1>
 
-    <form action="{{route('show.store')}}" method="post">
+    <form action="{{route('show.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div>
             <label for="title">Title</label>
@@ -27,8 +43,8 @@
         </div>
 
         <div>
-            <label for="poster_url">Poster URL</label>
-            <input type="text" name="poster_url" id="poster_url" required>
+            <label for="poster_url">Poster</label>
+            <input required type="file" name="poster_url" id="poster_url" accept="image/png, image/jpeg">
         </div>
 
         <div>
@@ -41,7 +57,7 @@
         </div>
 
         <div>
-            <button> Create </button>
+            <button class="button" style="background-color: blue"> Create </button>
         </div>
     </form>
 @endsection

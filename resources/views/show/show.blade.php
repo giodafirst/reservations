@@ -7,7 +7,8 @@
         <h1>{{ $show->title }}</h1>
 
         @if($show->poster_url)
-        <p><img src="{{ asset('images/'.$show->poster_url) }}" alt="{{ $show->title }}" width="200"></p>
+
+        <p><img width="250" height="auto" src="{{ asset('/storage/./'.$show->poster_url) }}" alt="{{ $show->title }}" title="{{ $show->title }}"></p>
         @else
         <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
         @endif
@@ -91,7 +92,7 @@
         @endforeach
         </p>
         @endif
-       
+
 
         {{--<ul>
             @foreach($show->artistTypes as $collaborateur)

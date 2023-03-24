@@ -7,7 +7,7 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 
 class ShowController extends Controller
@@ -87,9 +87,9 @@ class ShowController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public  function all($message=""){
+    public  function all($message="", $color=""){
         $shows = Show::all();
-        return view('show.all', ["shows" => $shows, 'message' => $message]);
+        return view('show.all', ["shows" => $shows, 'message' => $message, 'color' =>$color]);
     }
 
     /**
@@ -111,12 +111,13 @@ class ShowController extends Controller
      */
     public function store(Request $request)
     {
+        $name = Storage::disk('public')->put('.', $request->file('poster_url'));
         $title = $request->title;
         $slug = $this->slugify($title);
         $description = $request->description;
         $price = $request->price;
         $bookable= $request->has('bookable') ? 1 : 0;
-        $poster_url = $request->poster_url ;
+        $poster_url = $name;
         $location_id = $request->location_id;
 
         Show::create([
@@ -128,8 +129,11 @@ class ShowController extends Controller
             'poster_url'=> $poster_url,
             'location_id'=> $location_id,
         ]);
-        $message = "Show \"$title\" successfully created !";
-        return to_route('show.all', ["message"=>$message]);
+
+        return to_route('show.all', [
+            'color' => 'green',
+            'message' => "Show \"$title\" successfully created !",
+        ]);
     }
 
     /**
@@ -219,9 +223,12 @@ class ShowController extends Controller
     public function destroy($id)
     {
         $show = Show::findOrFail($id);
+        Storage::disk('public')->delete($show->poster_url);
         $show->delete();
-        $message = "Show \"$show->title\" successfully deleted";
-        return to_route('show.all', ["message" => $message]);
+        return to_route('show.all', [
+            'color' => 'red',
+            'message' => "Show \"$show->title\" successfully deleted",
+        ]);
     }
 
     public function search(Request $request)
@@ -313,5 +320,4 @@ public function sort()
     ]);
 
 }
-
 }
