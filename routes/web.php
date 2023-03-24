@@ -73,7 +73,8 @@ Route::controller(ShowController::class)->name('show.')->group(function(){
     Route::get('/show/create', 'create')->name('create');
     Route::post('/show/store', 'store')->name('store');
     Route::get('/show/details', 'details')->name('details');
-    Route::get('/show/update', 'update')->name('update');
+    Route::get('/show/edit/{id}', 'edit')->name('edit');
+    Route::post('/show/update/{id}', 'update')->name('update');
     Route::post('/show/delete/{id}', 'destroy')->name('delete');
 });
 

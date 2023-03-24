@@ -199,7 +199,9 @@ class ShowController extends Controller
      */
     public function edit($id)
     {
-        //
+        $show = Show::findOrFail($id);
+        $locations = Location::all();
+        return view('show.update', ['show' => $show, 'locations' => $locations]);
     }
 
     /**
@@ -211,7 +213,31 @@ class ShowController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $show = Show::findOrFail($id);
+        Storage::disk('public')->delete($show->poster_url);
+        $name = Storage::disk('public')->put('.', $request->file('poster_url'));
+        $title = $request->title;
+        $slug = $this->slugify($title);
+        $description = $request->description;
+        $price = $request->price;
+        $bookable= $request->has('bookable') ? 1 : 0;
+        $poster_url = $name;
+        $location_id = $request->location_id;
+
+        $show->update([
+            'title'=> $title,
+            'slug'=> $slug,
+            'description'=> $description,
+            'price'=> $price,
+            'bookable'=> $bookable,
+            'poster_url'=> $poster_url,
+            'location_id'=> $location_id,
+        ]);
+
+        return to_route('show.all', [
+            'color' => 'rgba(208, 135, 0, 1.00)',
+            'message' => "Show \"$title\" successfully updated !",
+        ]);
     }
 
     /**
