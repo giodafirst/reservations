@@ -31,10 +31,10 @@
             </li>
             <li class="dropdown-item">
                 <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip']) }}">Code postal</a>
-            </li> 
+            </li>
             <li class="dropdown-item">
                 <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip', 'order' => 'desc']) }}">Code postal (Décroissant)</a>
-            </li>           
+            </li>
             <li class="dropdown-item">
                 <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'prix']) }}">Prix</a>
             </li>
@@ -69,9 +69,7 @@
             @endif--}}
         @endforeach
     </ul>
-
     <div class="flex items-center">{{ $shows->links() }}</div>
-
     {{--<h2>Liste des {{ $resource2 }}</h2>
     <ul>
         @foreach($bookableshows as $bookableshow)
