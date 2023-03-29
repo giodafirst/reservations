@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('places');
             $table->foreignId('representation_id');
             $table->foreignId('user_id');
+            
+
 
             $table->foreign('representation_id')->references('id')->on('representations')
             ->onDelete('RESTRICT')

@@ -78,7 +78,8 @@ class ShowController extends Controller
             'showsfromlasamaritaine'=>$showsfromlasamaritaine,
             'brusselsShows'=>$brusselsShows,
             'marcelinShows'=>$marcelinShows,
-            'singleActorShows'=>$singleActorShows,*/
+            'singleActorShows'=>$singleActorShows,
+            */
 
 
         ]);

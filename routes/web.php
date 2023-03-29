@@ -47,9 +47,8 @@ Route::get('/role/{id}',[RoleController::class, 'show'])->name('role.show');
 Route::get('/location',[LocationController::class, 'index'])->name('location.index');
 Route::get('/location/{id}',[LocationController::class, 'show'])->where('id','[0-9]+')->name('location.show');
 Route::get('/representation',[RepresentationController::class, 'index'])->name('representation.index');
-Route::get('/representation',[RepresentationController::class, 'filter'])->name('representation.filter');
+Route::get('/reservation',[ReservationController::class, 'checkout'])->name('reservation.checkout');
 Route::get('/representation/{id}',[RepresentationController::class, 'show'])->where('id','[0-9]+')->name('representation.show');
-Route::get('/representation', [RepresentationController::class, 'search'])->where('id','[0-9]+')->name('representation.search');
 Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     $locale = $request->input('language');
     if (in_array($locale, config('app.locales'))) {
