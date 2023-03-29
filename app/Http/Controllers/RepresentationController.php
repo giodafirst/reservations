@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Representation;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-
-
+use Illuminate\Http\Request;
 
 class RepresentationController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
@@ -20,24 +15,11 @@ class RepresentationController extends Controller
      */
     public function index()
     {
-        //App::setLocale('fr');
-        //$representations = Representation::all();
-
-        $representations = DB::table('shows')
-        ->join('representations', 'shows.id', '=', 'representations.show_id')
-        ->join('locations', 'representations.location_id', '=', 'locations.id')
-        ->select('shows.title', 'representations.when', 'locations.designation')
-        ->orderBy('shows.title')
-        ->paginate(10);
-    
-    
-
-        return view('representation.index',[
+        $representations = Representation::all()->groupBy('show_id');
+        return view('representation.index', [
             'representations' => $representations,
-            'resource' => 'représentations',
-
+            'resource' => 'Representations',
         ]);
-        
     }
 
     /**
@@ -72,7 +54,7 @@ class RepresentationController extends Controller
         $representation = Representation::find($id);
         $date = Carbon::parse($representation->when)->format('d/m/Y');
         $time = Carbon::parse($representation->when)->format('G:i');
-
+        
         return view('representation.show',[
             'representation' => $representation,
             'date' => $date,
@@ -80,6 +62,8 @@ class RepresentationController extends Controller
         ]);
 
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -114,49 +98,4 @@ class RepresentationController extends Controller
     {
         //
     }
-
-    public function search(Request $request)
-    {
-
-        //App::setLocale('fr');
-
-        $query = $request->input('query');
-        
-        if ($request->has('filterBy')) {
-            $orderBy = $request->input('filterBy');
-        } else {
-            $orderBy = "shows.title";
-        }
-        
-        $date = $request->input('date');
-        if (!empty($date)) {
-            $date = date('Y-m-d', strtotime($date));
-        }
-        
-        $representations = DB::table('representations')
-        ->join('shows', 'representations.show_id', '=', 'shows.id')
-        ->join('locations', 'representations.location_id', '=', 'locations.id')
-        ->when(!empty($query), function ($queryBuilder) use ($query) {
-            return $queryBuilder->where(function ($queryBuilder) use ($query) {
-                $queryBuilder->where('shows.title', 'LIKE', "%$query%")
-                    ->orWhere('locations.designation', 'LIKE', "%$query%");
-            });
-        })
-        ->when(!empty($date), function ($queryBuilder) use ($date) {
-            return $queryBuilder->whereDate('representations.when', $date);
-        })
-
-        ->orderBy('shows.title')
-        ->paginate(2);
-
-
-        return view('representation.index', [
-            'representations' => $representations,
-            'resource' => 'représentations',
-            ]
-            );
-    }
-
-
 }
-

@@ -3,38 +3,39 @@
 @section('title','Liste des représentations')
 
 @section('content')
-    <h1 class="text-xl">Liste des {{ $resource }}</h1>
-    <h2>Recherche par titre, mot-clef ou par date</h2>
-
-    <form action="{{ route('representation.search') }}" method="GET">
-        <input type="text" name="query" placeholder="Recherche...">
-        <input type="date" name="date">
-        <button type="submit">Rechercher</button>
-    {{-- </form>
-    <form action="{{ route('representation.order') }}" method="get"> --}}
-        <label for="filterBy">Filtrer par : </label>
-        <select name="filterBy" id="filterBy">
-            <option value="shows.title" selected>A->Z</option>
-            <option value="shows.location_id">Commune</option>
-            <option value="when">Date</option>
-            <option value="price">Prix</option>
-        </select>
-    </form>
-   
-    <ul>
-            @foreach($representations as $representation)
-                <li>{{ $representation->title }}
-
-                    - <span>{{ $representation->designation }}</span>
-                    - <datetime>{{ date('d/m/Y H:i', strtotime($representation->when)) }}</datetime>
-                    - <span>{{ $representation->price }}</span>
-
-                </li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Lieu</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($representations as $representationGroup)
+            <tr class="table-warning">
+                <th colspan="3">{{ $representationGroup[0]->show->title}}
+                    <em>{{ $representationGroup[0]->show->price ? ' - '.$representationGroup[0]->show->price.'€' : '' }}</em></td>
+                </th>
+            </tr>
+            @foreach($representationGroup as $representation)
+                <tr>
+                    <td><datetime>{{ substr($representation->when,0,-3) }}</datetime></td>
+                    <td>
+                        @if($representation->location)
+                            {{ $representation->location->designation }}
+                        @endif
+                    </td>
+                    <td style="text-align:right">
+                            @if($representation->show->bookable && $representation->when > now())
+                                <a class="button"  href="{{ route('representation.show', $representation->id) }}">Book</a>
+                            @else
+                            <a class="button"  href="{{ route('show.show', $representation->show->id) }}">View</a>
+                            @endif        
+                    </td>
+                </tr>
             @endforeach
-
-            
-
-    </ul>
-    
-    <div class="flex items-center">{{ $representations->links() }}</div>
+        @endforeach
+        </tbody>
+    </table>
 @endsection
