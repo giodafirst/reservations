@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArtistTypeShow;
 use App\Models\Locality;
 use App\Models\Location;
+use App\Models\Representation;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
@@ -178,12 +180,13 @@ class ShowController extends Controller
     {
         $show = Show::find($id);
 
-        //Récupérer les artistes du spectacle et les grouper par type
-        $collaborateurs = [];
-
-        foreach($show->artistTypes as $at){
-            $collaborateurs[$at->type->type][]=$at->artist;
-        }
+        $collaborateurs = DB::table('artists')
+            ->select('artists.firstname', 'artists.lastname', 'types.type')
+            ->join('artist_type', 'artist_type.artist_id', '=', 'artists.id')
+            ->join('types', 'types.id', '=', 'artist_type.type_id')
+            ->join('artist_type_shows', 'artist_type_shows.artist_type_id', '=', 'artist_type.id')
+            ->where('artist_type_shows.show_id', '=', $id)
+            ->get();
 
         return view ('show.show',[
             'show' => $show,
@@ -215,7 +218,10 @@ class ShowController extends Controller
     public function update(Request $request, $id)
     {
         $show = Show::findOrFail($id);
-        Storage::disk('public')->delete($show->poster_url);
+        $oldShowTitle = $show->title;
+        if($show->poster_url != null){
+            Storage::disk('public')->delete($show->poster_url);
+        }
         $name = Storage::disk('public')->put('.', $request->file('poster_url'));
         $title = $request->title;
         $slug = $this->slugify($title);
@@ -236,8 +242,8 @@ class ShowController extends Controller
         ]);
 
         return to_route('show.all', [
-            'color' => 'rgba(208, 135, 0, 1.00)',
-            'message' => "Show \"$title\" successfully updated !",
+            'color' => 'green',
+            'message' => "Show \"$oldShowTitle\" successfully updated to new show \"$title\" !",
         ]);
     }
 
@@ -250,10 +256,33 @@ class ShowController extends Controller
     public function destroy($id)
     {
         $show = Show::findOrFail($id);
-        Storage::disk('public')->delete($show->poster_url);
-        $show->delete();
+        $representations = Representation::where("show_id","=",$id)->get();
+        $artistTypeShows = ArtistTypeShow::where("show_id","=",$id)->get();
+
+        if(count($representations) > 0 && count($artistTypeShows) > 0){
+            return to_route('show.all',[
+                'color' => 'red',
+                'message' => "Cannot delete \"$show->title\", because ".count($representations)." representation(s) AND ".count($artistTypeShows)." artist_type_show(s) uses this show !",
+            ]);
+        }else if(count($artistTypeShows) > 0){
+            return to_route('show.all',[
+                'color' => 'red',
+                'message' => "Cannot delete \"$show->title\", because ".count($artistTypeShows)." artist_type_show(s) use this show !",
+            ]);
+        }else if(count($representations) > 0){
+            return to_route('show.all',[
+                'color' => 'red',
+                'message' => "Cannot delete \"$show->title\", because ".count($representations)." representation(s) uses this show !",
+            ]);
+        }else{
+            if($show->poster_url != null){
+                Storage::disk('public')->delete($show->poster_url);
+            }
+            $show->delete();
+        }
+
         return to_route('show.all', [
-            'color' => 'red',
+            'color' => 'green',
             'message' => "Show \"$show->title\" successfully deleted",
         ]);
     }
