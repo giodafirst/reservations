@@ -24,7 +24,7 @@ class ArtistTypeShowSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         //Empty the table first
-        DB::table('artist_type_show')->truncate();
+        DB::table('artist_type_shows')->truncate();
 
         //Réactiver les clefs
         Schema::enableForeignKeyConstraints();
@@ -103,12 +103,12 @@ class ArtistTypeShowSeeder extends Seeder
         ];
         //Prepare the data
         foreach ( $artistTypesShows as &$data){
-            //Search the artist for a given artist's firstname and lastname 
+            //Search the artist for a given artist's firstname and lastname
             $artist = Artist::where([
                 ['firstname','=',$data['artist_firstname']],
                 ['lastname','=',$data['artist_lastname']],
             ])->first();
-    
+
             //Search the type for a given type
             $type = Type::firstWhere('type', $data['type']);
 
@@ -130,15 +130,15 @@ class ArtistTypeShowSeeder extends Seeder
             unset($data['artist_lastname']);
             unset($data['type']);
             unset($data['show_slug']);
-    
-    
+
+
             $data['artist_type_id'] = $artistType->id;
-            $data['show_id'] = $show->id; 
+            $data['show_id'] = $show->id;
             }
-    
+
             unset ($data);
-    
-            DB::table('artist_type_show')->insert($artistTypesShows);
+
+            DB::table('artist_type_shows')->insert($artistTypesShows);
     }
 }
 

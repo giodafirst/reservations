@@ -3,6 +3,12 @@
 @section('title','Fiche d\'un spectacle')
 
 @section('content')
+    <style>
+        table, tr, th, td{
+           border:1px solid black;
+            text-align: center;
+        }
+    </style>
     <article>
         <h1>{{ $show->title }}</h1>
 
@@ -47,62 +53,27 @@
         <p>{{ __('NoRepresentation') }}</p>
         @endif
 
-        <h2>{{ __('Artists') }}</h2>
-        <p><strong>{{ __('Producer') }} : </strong>
-        @if (isset($collaborateurs['producteur']))
-        @foreach($collaborateurs['producteur'] as $producteur)
-        {{ $producteur->firstname }}
-        {{ $producteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
-        @endforeach
-        </p>
-        @endif
-        <p><strong>{{ __('Director') }} : </strong>
-        @if (isset($collaborateurs['metteur en scène']))
+        <h2>Collaborateurs </h2>
+        @if(!empty($collaborateurs))
+            <table>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Type</th>
+                </tr>
+            @foreach($collaborateurs as $collaborateur)
 
-        @foreach($collaborateurs['metteur en scène'] as $metteurEnScene)
-        {{ $metteurEnScene->firstname }}
-        {{ $metteurEnScene->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
-        @endforeach
-        </p>
-        @endif
-        <p><strong>{{ __('Actor') }} : </strong>
-        @if (isset($collaborateurs['acteur']))
-
-        @foreach($collaborateurs['acteur'] as $acteur)
-        {{ $acteur->firstname }}
-        {{ $acteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
-        @endforeach
-        </p>
-        @endif
-        <p><strong>{{ __('Singer') }} : </strong>
-        @if (isset($collaborateurs['chanteur']))
-
-        @foreach($collaborateurs['chanteur'] as $chanteur)
-        {{ $chanteur->firstname }}
-        {{ $chanteur->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
-        @endforeach
-        </p>
-        @endif
-        <p><strong>{{ __('Technician') }} : </strong>
-        @if (isset($collaborateurs['technicien']))
-
-        @foreach($collaborateurs['technicien'] as $technicien)
-        {{ $technicien->firstname }}
-        {{ $technicien->lastname }}@if($loop->iteration==$loop->count-1) et @elseif(!$loop->last) , @endif
-        @endforeach
-        </p>
-        @endif
-
-
-        {{--<ul>
-            @foreach($show->artistTypes as $collaborateur)
-            <li>
-                {{ $collaborateur->artist->firstname }}
-                {{ $collaborateur->artist->lastname }}
-                ({{ $collaborateur->type->type }})
-            </li>
+                    <tr>
+                        <td>{{$collaborateur->firstname}}</td>
+                        <td>{{$collaborateur->lastname}}</td>
+                        <td>{{$collaborateur->type}}</td>
+                    </tr>
             @endforeach
-        </ul>--}}
+            </table>
+        @else
+            <p>Pas de collaborateurs</p>
+        @endif
+
     </article>
 
     <nav><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Back') }}</a></nav>
