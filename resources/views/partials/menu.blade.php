@@ -7,6 +7,7 @@
     <li style="display: inline-block"><a style="color: white; text-decoration: none" href="{{route('locality.index')}}">Localities</a> | </li>
     <li style="display: inline-block"><a style="color: white; text-decoration: none" href="{{route('role.index')}}">Role</a> | </li>
     <li style="display: inline-block"><a style="color: white; text-decoration: none" href="{{route('dashboard')}}">Login</a> |</li>
+    <li style="display: inline-block"><a style="color: white; text-decoration: none" href="{{route('register')}}">Register</a> |</li>
     <span style="color:white">(cette navbar est la temporairement)</span>
 </ul>
 
