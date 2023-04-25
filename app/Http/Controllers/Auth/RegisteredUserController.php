@@ -30,22 +30,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+    
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'login' => ['required', 'string', 'max:30', 'unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', 'min:6', 'regex:/^(?=.*[A-Z])(?=.*\W).+$/'],
+            'firstname' => ['required', 'string', 'max:60'],
+            'lastname' => ['required', 'string', 'max:60'],
+            'langue' => ['required', 'string', 'max:3'],
+        ],
+        [
+            'password.regex' => 'The password must contain at least one uppercase letter and one special character.',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'login' => $request->login,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'langue' => $request->langue,
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
+       
     }
+    
 }

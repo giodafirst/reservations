@@ -2,18 +2,11 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- Login -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="login" :value="__('Login')" />
+            <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autofocus />
+            <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -37,6 +30,38 @@
                             name="password_confirmation" required />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <!-- Firstname -->
+        <div>
+            <x-input-label for="firstname" :value="__('Firstname')" />
+            <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus />
+            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+        </div>
+
+        <!-- Lastname -->
+        <div>
+            <x-input-label for="lastname" :value="__('Lastname')" />
+            <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus />
+            <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
+        </div>
+
+         <!-- Email Address -->
+         <div class="mt-4">
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- Langue -->
+        <div>
+            <x-input-label for="langue" :value="__('Langue')" />
+            <select id="langue" class="block mt-1 w-full" name="langue" required autofocus>
+                <option value="" disabled selected>{{ __('Select your language') }}</option>
+                <option value="eng" @if(old('langue')=='eng') selected="selected" @endif>{{ __('English') }}</option>
+                <option value="fra" @if(old('langue')=='fra') selected="selected" @endif>{{ __('French') }}</option>
+            </select>
+            <x-input-error :messages="$errors->get('langue')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

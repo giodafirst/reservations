@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LocalityController;
@@ -58,6 +59,8 @@ Route::post('/language/switch', function (Illuminate\Http\Request $request) {
     return back();
 })->name('language.switch')->middleware('web');
 Route::feeds();
+Route::post('/user/store', [RegisteredUserController::class, 'store'])->name('user.store');
+
 
 //Route::get("locale/{lang}",[LocalizationController::class, 'setLang']);
 
