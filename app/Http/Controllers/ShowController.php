@@ -339,13 +339,11 @@ class ShowController extends Controller
         'localities' => $localities,
     ]);
 }
-
 public function sort()
 {
-
     $sort = request()->query('sortBy');
     $order = request()->query('order', 'asc');
-    // dd($order);
+
     switch ($sort) {
         case 'reservable':
             $orderBy = 'shows.bookable';
@@ -359,14 +357,16 @@ public function sort()
         default:
             $orderBy = 'shows.title';
             break;
-
     }
+
     $shows = DB::table('shows')
-    ->join('representations', 'shows.id', '=', 'representations.show_id')
-    ->select('shows.id', 'shows.title', 'shows.description', 'shows.poster_url', 'shows.bookable', 'shows.price', 'shows.location_id', 'shows.created_at', 'shows.updated_at')
-    ->distinct()
-    ->orderBy("$orderBy", "$order")
-    ->paginate(2);
+        ->join('representations', 'shows.id', '=', 'representations.show_id')
+        ->select('shows.id', 'shows.title', 'shows.description', 'shows.poster_url', 'shows.bookable', 'shows.price', 'shows.location_id', 'shows.created_at', 'shows.updated_at')
+        ->distinct()
+        ->orderBy("$orderBy", "$order")
+        ->paginate(2)
+        ->appends(['sortBy' => $sort, 'order' => $order]); // Ajoute les paramètres de tri à la pagination
+
     $localities = Locality::all();
 
     return view('show.index', [
@@ -374,6 +374,6 @@ public function sort()
         'resource' => 'spectacles',
         'localities' => $localities,
     ]);
-
 }
+
 }
