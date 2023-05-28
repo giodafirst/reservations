@@ -1,15 +1,12 @@
 <!-- Hero -->
 <section id="hero" class="container">
     <header>
-        <h2>Telephasic is a responsive
         <br />
-        site template by <a href="http://html5up.net">HTML5 UP</a></h2>
+        <h2>The platform where you can consult <br> plays and reserve tickets for your <br> favorite shows</h2>
     </header>
-    <p>Designed and built by <a href="http://twitter.com/ajlkn">AJ</a> and released for free under
-    <br />
-    the <a href="http://html5up.net/license">Creative Commons Attribution 3.0 license</a>.</p>
+    <p>If you want to consult the catalog of shows of the moment, press the button just below</p>
     <ul class="actions">
-        <li><a href="#" class="button">Get this party started</a></li>
+        <li><a href="{{route('representation.index')}}" class="button">Get the show started</a></li>
     </ul>
 </section>
 </div>

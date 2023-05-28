@@ -8,32 +8,27 @@
         <div class="row">
             <section class="col-6 col-12-narrower feature">
                 <div class="image-wrapper first">
-                    <a href="#" class="image featured first"><img src="images/pic01.jpg" alt="" /></a>
+                    <a href="{{route('artist.index')}}" class="image featured first"><img src="images/pic01.jpg" alt="" /></a>
                 </div>
                 <header>
-                    <h2>Semper magna neque vel<br />
-                    adipiscing curabitur</h2>
+                    <h2>The list of
+                        artists</h2>
                 </header>
-                <p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur vel
-                sem sit dolor neque semper magna. Lorem ipsum dolor sit amet consectetur et sed
-                adipiscing elit. Curabitur vel sem sit.</p>
+                <p>here you can see the list of your artists that you follow, and see<br /> in which pieces they will play soon...</p>
                 <ul class="actions">
-                    <li><a href="#" class="button">Elevate my awareness</a></li>
+                    <li><a href="{{route('artist.index')}}" class="button">see all artists</a></li>
                 </ul>
             </section>
             <section class="col-6 col-12-narrower feature">
                 <div class="image-wrapper">
-                    <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
+                    <a href="{{route('location.index')}}" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
                 </div>
                 <header>
-                    <h2>Amet lorem ipsum dolor<br />
-                    sit consequat magna</h2>
+                    <h2>All locations</h2>
                 </header>
-                <p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur vel
-                sem sit dolor neque semper magna. Lorem ipsum dolor sit amet consectetur et sed
-                adipiscing elit. Curabitur vel sem sit.</p>
+                <p>Look for a venue near you, or simply see the list of performance halls<br /> right here in this section...</p>
                 <ul class="actions">
-                    <li><a href="#" class="button">Elevate my awareness</a></li>
+                    <li><a href="{{route('location.index')}}" class="button">see all venues</a></li>
                 </ul>
             </section>
         </div>

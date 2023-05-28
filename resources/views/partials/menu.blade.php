@@ -11,6 +11,7 @@
                 <li><a href="{{route('show.index')}}">Shows</a></li>
                 <li><a href="{{route('artist.index')}}">Artists</a></li>
                 <li><a href="{{route('location.index')}}">Localitions</a></li>
+                <li><a href="{{route('representation.index')}}">Representations</a></li>
                 @auth
                 <li class="break"><a href="{{route('profile.edit')}}">profile</a></li>
                 <li class="break"><a href="{{route('login')}}">Logout</a></li>
