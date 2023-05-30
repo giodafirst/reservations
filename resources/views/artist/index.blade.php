@@ -3,15 +3,15 @@
 @section('title','Liste des artistes')
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
+    <h1>{{__('Liste des artistes')}}</h1>
     <ul>
-        <li><a href="{{ route('artist.create') }}">Ajouter</a></li>
+        <li><a href="{{ route('artist.create') }}">{{__('Ajouter')}}</a></li>
     </ul>
     <table>
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>{{__('Prénom')}}</th>
+                <th>{{__('Nom de famille')}}</th>
             </tr>
         </thead>
         <tbody>

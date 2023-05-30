@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th scope="col">Date</th>
-                <th scope="col">Lieu</th>
+                <th scope="col">{{__('Lieu')}}</th>
                 <th></th>
             </tr>
         </thead>
@@ -28,9 +28,9 @@
                     </td>
                     <td style="text-align:right">
                             @if($representation->show->bookable && $representation->when > now())
-                                <a class="button"  href="{{ route('representation.show', $representation->id) }}">Book</a>
+                                <a class="button"  href="{{ route('representation.show', $representation->id) }}">{{__('Réserver')}}</a>
                             @else
-                            <a class="button"  href="{{ route('show.show', $representation->show->id) }}">View</a>
+                            <a class="button"  href="{{ route('show.show', $representation->show->id) }}">{{__('Voir')}}</a>
                             @endif        
                     </td>
                 </tr>

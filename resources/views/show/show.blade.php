@@ -20,19 +20,19 @@
         @endif
 
         @if($show->location)
-        <p><strong>{{ __('Location') }} : </strong>{{ $show->location->designation }}</p>
+        <p><strong>{{ __('Lieu') }} : </strong>{{ $show->location->designation }}</p>
         {{-- dd($show->location) --}}
         @endif
 
-        <p><strong>{{ __('Price') }} : </strong>{{ $show->price }}€</p>
+        <p><strong>{{ __('Prix') }} : </strong>{{ $show->price }}€</p>
 
         @if($show->bookable)
-        <p><em>{{ __('Bookable') }}</em></p>
+        <p><em>{{ __('Réservable') }}</em></p>
         @else
-        <p><em>{{ __('NonBookable') }}</em></p>
+        <p><em>{{ __('Non réservable') }}</em></p>
         @endif
 
-        <h2>{{ __('Representations') }}</h2>
+        <h2>{{ __('Représentations') }}</h2>
 
         @if($show->representations->count()>=1)
             <ul>
@@ -50,16 +50,16 @@
                 @endforeach
             </ul>
         @else
-        <p>{{ __('NoRepresentation') }}</p>
+        <p>{{ __('Pas de représentation') }}</p>
         @endif
 
-        <h2>Collaborateurs </h2>
+        <h2>{{__('Collaborateurs')}}</h2>
         @if(!empty($collaborateurs))
             <table>
                 <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Type</th>
+                    <th>{{__('Prénom')}}</th>
+                    <th>{{__('Nom de famille')}}</th>
+                    <th>{{__('Type')}}</th>
                 </tr>
             @foreach($collaborateurs as $collaborateur)
 
@@ -76,5 +76,5 @@
 
     </article>
 
-    <nav><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Back') }}</a></nav>
+    <nav><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Retour à l\'index') }}</a></nav>
 @endsection

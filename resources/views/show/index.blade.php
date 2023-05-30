@@ -2,13 +2,13 @@
 @section('title','Liste des spectacles')
 
 @section('content')
-    <h1>{{ __('Shows') }}</h1>
-    <h2>{{ __('Search') }}</h2>
+    <h1>{{ __('Représentations') }}</h1>
+    <h2>{{ __('Rechercher') }}</h2>
 
     <form action="{{ route('show.search') }}" method="GET">
-        <input type="text" name="query" placeholder="{{ __('Search') }}...">
+        <input type="text" name="query" placeholder="{{ __('Rechercher') }}...">
         <input type="date" name="date">
-        <label for="sort">{{ __('ByLocality') }} :</label>
+        <label for="sort">{{ __('Par Commune') }} :</label>
         <select name="postal_code" id="sort">
             <option value="none" selected>-----</option>
             @foreach($localities as $locality)
@@ -16,40 +16,40 @@
             @endforeach
         </select>
         <input type="checkbox" name="reservable" id="reservable">
-        <label for="reservable">{{ __('Bookable') }} |</label>
-        <button type="submit">{{ __('Search') }}</button>
+        <label for="reservable">{{ __('Réservable') }} |</label>
+        <button type="submit">{{ __('Rechercher') }}</button>
     </form>
 
     <!-- Sort -->
     <div class="navbar navbar-expand-lg navbar-light bg-light">
         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img alt="" title="" src="themes/dot.gif" class="icon ic_b_more">
-            {{ __('Sort by') }}:
+            {{ __('Trier par') }}:
         </a>
         <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'titre', 'order' => 'asc']) }}">{{ __('Title') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'titre', 'order' => 'asc']) }}">{{ __('Titre') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'titre', 'order' => 'desc' ]) }}">{{ __('Title (Descending)') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'titre', 'order' => 'desc' ]) }}">{{ __('Titre (déscendant)') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip', 'order' => 'asc']) }}">{{ __('Postal Code') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip', 'order' => 'asc']) }}">{{ __('Code postal') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip', 'order' => 'desc']) }}">{{ __('Postal Code (Descending)') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'zip', 'order' => 'desc']) }}">{{ __('Code postal (déscendant)') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'prix', 'order' => 'asc']) }}">{{ __('Price') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'prix', 'order' => 'asc']) }}">{{ __('Prix') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'prix', 'order' => 'desc']) }}">{{ __('Price (Descending)') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'prix', 'order' => 'desc']) }}">{{ __('Prix (déscendant)') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'reservable', 'order' => 'asc']) }}">{{ __('Bookable') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'reservable', 'order' => 'asc']) }}">{{ __('Réservable') }}</a>
             </li>
             <li class="dropdown-item">
-                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'reservable', 'order' => 'desc']) }}">{{ __('Bookable (Descending)') }}</a>
+                <a class="nav-link text-nowrap" href="{{ route('show.sort', ['sortBy' => 'reservable', 'order' => 'desc']) }}">{{ __('Réservable (déscendant)') }}</a>
             </li>
         </ul>
     </div>

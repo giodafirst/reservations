@@ -21,12 +21,12 @@
             <p>Pas de téléphone</p>
             @endif
         </address>
-        <h2>Liste des spectacles</h2>
+        <h2>{{__('Liste des spectacles')}}</h2>
         <ul>
             @foreach($location->shows as $show)
             <li>{{ $show->title }}</li>
             @endforeach
         </ul>
     </article>
-    <nav><a href="{{ route('location.index') }}">Retour à l'index</a></nav>
+    <nav><a href="{{ route('location.index') }}">{{__('Retour à l\'index')}}</a></nav>
 @endsection
