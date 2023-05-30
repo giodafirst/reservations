@@ -3,11 +3,11 @@
 @section('title','Fiche d\'une représentation')
 
 @section('content')
-    <article>
-        <h1>Représentation du {{ $date }} à {{ $time }}</h1>
+    <article class="text-center">
+        <h1 class="pb-10">{{__('Représentation')}} {{__('du')}} {{ $date }} - {{ $time }}</h1>
 
-        <p><strong>Spectacle : </strong>{{ $representation->show->title }}</p>
-        <p><strong>Lieu : </strong>
+        <p><strong>{{__('Spectacle')}} : </strong>{{ $representation->show->title }}</p>
+        <p><strong>{{__('Lieu')}} : </strong>
             @if($representation->location)
             {{ $representation->location->designation }}
             @else
@@ -17,17 +17,17 @@
     </article>
     <!-- Filtre qui verifie bien si la representation est bien dispo -->
     @if($representation->show->bookable && $representation->when > date('Y-m-d H:i:s') )
-    <p><strong>Prix:</strong> {{ $representation->show->price }} &#8364</p>
-    <div class="lib-desc">
-        <h2>Réserver</h2>
+    <p class="text-center"><strong>{{__('Prix')}} :</strong> {{ $representation->show->price }} &#8364</p>
+    <div class="text-center lib-desc">
+        <h2>{{__('Réserver')}}</h2>
         <form method="POST" class="reserve" action="{{ route('reservations_checkout') }}">
             @csrf
-            <label for="places">Places</label>
+            <label for="places">{{__('Places')}}</label>
             <input type="number" id="places" name="places" min="1" value="{{ old('places') ?? 2 }}" >
             <input type="text" name="representation" value="{{ $representation->id }}" hidden>
-            <button type="submit" class="button expanded">Payer</button>
+            <button type="submit" class="button expanded">{{__('Payer')}}</button>
         </form>
     </div>
     @endif
-    <nav><a href="{{ route('representation.index') }}">Retour à l'index</a></nav>
+    <nav class="text-center pt-4"><a href="{{ route('representation.index') }}">{{__('Retour à l\'index')}}</a></nav>
 @endsection

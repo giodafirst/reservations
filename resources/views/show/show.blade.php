@@ -9,18 +9,18 @@
             text-align: center;
         }
     </style>
-    <article>
-        <h1>{{ $show->title }}</h1>
+    <article class="text-center">
+        <h1 class="text-center pb-10">{{ $show->title }}</h1>
 
         @if($show->poster_url)
 
         <p><img width="250" height="auto" src="{{ asset('/storage/./'.$show->poster_url) }}" alt="{{ $show->title }}" title="{{ $show->title }}"></p>
         @else
-        <canvas width="200" height="100" style="border:1px solid #000000;"></canvas>
+        <canvas class="mx-auto" width="200" height="100" style="border:1px solid #000000;"></canvas>
         @endif
 
         @if($show->location)
-        <p><strong>{{ __('Lieu') }} : </strong>{{ $show->location->designation }}</p>
+        <p class="pt-4"><strong>{{ __('Lieu') }} : </strong>{{ $show->location->designation }}</p>
         {{-- dd($show->location) --}}
         @endif
 
@@ -32,7 +32,7 @@
         <p><em>{{ __('Non réservable') }}</em></p>
         @endif
 
-        <h2>{{ __('Représentations') }}</h2>
+        <h2 class="pt-10">{{ __('Représentations') }}</h2>
 
         @if($show->representations->count()>=1)
             <ul>
@@ -53,7 +53,7 @@
         <p>{{ __('Pas de représentation') }}</p>
         @endif
 
-        <h2>{{__('Collaborateurs')}}</h2>
+        <h2 class="pt-10 pb-4">{{__('Collaborateurs')}}</h2>
         @if(!empty($collaborateurs))
             <table>
                 <tr>
@@ -76,5 +76,5 @@
 
     </article>
 
-    <nav><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Retour à l\'index') }}</a></nav>
+    <nav class="text-center"><a href="{{ Route('show.index') }}{{-- url()->previous() --}}">{{ __('Retour à l\'index') }}</a></nav>
 @endsection

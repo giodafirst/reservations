@@ -13,8 +13,8 @@
     "Prix" : "Price",
     "Salles" : "Locations",
     "Non réservable" : "Non bookable",
-    "Représentations" : "Representations",
-    "Aucune représentation" : "No representation",
+    "Représentations" : "Performances",
+    "Aucune représentation" : "No performance",
     "Artistes" : "Artists",
     "Producteur" : "Producer",
     "Metteur en scène" : "Director",
@@ -60,13 +60,19 @@
     "chanteur" : "singer",
     "producteur" : "producer",
     "technicien" : "technician",
-    "Pas de représentation" : "No representation",
+    "Pas de représentation" : "No performance",
     "Collaborateurs" : "Collaborators",
     "Titre" : "Title",
     "Titre (déscendant)" : "Title (descending)",
     "Code postal" : "Postal code",
     "Code postal (déscendant)" : "Postal code (descendant)",
     "Prix (déscendant)" : "Price (descending)",
-    "Réservable (déscendant)" : "Bookable (descending)"
+    "Réservable (déscendant)" : "Bookable (descending)",
+    "Payer" : "Pay",
+    "Spectacle" : "Show",
+    "Représentation" : "Performance",
+    "du" : "of",
+    "Pas de téléphone" : "No phone",
+    "Pas de site web" : "No website"
  
  }

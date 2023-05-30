@@ -3,7 +3,7 @@
 <div id="header-wrapper">
     <div id="header" class="container">
         <!-- Logo -->
-        <h1><a id="logo" href="/"><x-application-logo /></a></h1>
+        <h1><a class="" id="logo" href="/"><x-application-logo /></a></h1>
         <!-- Nav -->
         <nav id="nav">
             <ul>
@@ -14,11 +14,11 @@
                 <li><a href="{{route('representation.index')}}">{{__('Représentations')}}</a></li>
                 @auth
                 <li class="break"><a href="{{route('profile.edit')}}">{{__('Profile')}}</a></li>
-                <li class="break"><a href="{{route('login')}}">{{__('Se déconnecter')}}</a></li>
+                <li class="break"><a href="{{route('login')}}">{{__('Se connecter')}}</a></li>
                 @endauth
                 @guest
-                <li class="break"><a href="{{route('dashboard')}}">{{__('S\'inscrire')}}</a></li>
-                <li><a href="{{route('register')}}">{{__('Connexion')}}</a></li>
+                <li class="break"><a href="{{route('dashboard')}}">{{__('Connexion')}}</a></li>
+                <li><a href="{{route('register')}}">{{__('S\'inscrire')}}</a></li>
                 <li>
                 <form class="" action="{{ route('language.switch')}}" method="POST">
                     @csrf
