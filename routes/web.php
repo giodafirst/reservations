@@ -73,6 +73,7 @@ Route::controller(ShowController::class)->name('show.')->group(function(){
     Route::get('/show/search', 'search')->where('id','[0-9]+')->name('search');
     Route::get('/show/sort', 'sort')->where('id','[0-9]+')->name('sort');
     Route::get('/show/all/{message?}/{color?}', 'all')->name('all');
+    Route::get('/show/export', 'export')->name('export');
     Route::get('/show/create', 'create')->name('create');
     Route::post('/show/store', 'store')->name('store');
     Route::get('/show/details', 'details')->name('details');
