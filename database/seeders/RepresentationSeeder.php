@@ -36,17 +36,17 @@ class RepresentationSeeder extends Seeder
             [
                 'location_slug' => 'la-samaritaine',
                 'show_slug' => '3-hommes-et-un-couffin',
-                'when' => '2023-03-15 20:00',
+                'when' => '2023-06-15 20:00',
             ],
             [
                 'location_slug' => 'dexia-art-center',
                 'show_slug' => 'scarface',
-                'when' => '2023-03-14 20:00',
+                'when' => '2023-06-14 20:00',
             ],
             [
                 'location_slug' => 'espace-magh',
                 'show_slug' => 'oscar',
-                'when' => '2023-03-16 20:00',
+                'when' => '2023-06-16 20:00',
             ],
         
             

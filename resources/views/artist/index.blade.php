@@ -3,15 +3,15 @@
 @section('title','Liste des artistes')
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
-    <ul>
-        <li><a href="{{ route('artist.create') }}">Ajouter</a></li>
+    <h1 class="text-center pb-10">{{__('Liste des artistes')}}</h1>
+    <ul class="pl-0">
+        <li class="text-center pl-0 pb-10"><a href="{{ route('artist.create') }}">{{__('Ajouter')}}</a></li>
     </ul>
-    <table>
+    <table class="text-center">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>{{__('Prénom')}}</th>
+                <th>{{__('Nom de famille')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,4 +25,5 @@
             @endforeach
         </tbody>
     </table>
+    <div class="pt-10 flex justify-center">{{ $artists->links() }}</div>
     @endsection

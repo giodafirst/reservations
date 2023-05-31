@@ -19,19 +19,8 @@
 <body class="no-sidebar is-preload">
     <div id="page-wrapper">
         @include('partials.menu')
-        <div class="wrapper">
-            <form class="w-1/4 ml-auto" action="{{ route('language.switch')}}" method="POST">
-                @csrf
-                <label for="language">{{ __('Language') }} :</label>
-                <select name="language" id="language">
-                @foreach(config('app.locales') as $locale)
-                <option value="{{ $locale }}" {{ app()->getLocale() === $locale ? 'selected' : '' }}>
-                {{ strtoupper($locale) }}
-                </option>
-                @endforeach
-                </select>
-                <button type="submit">{{ __('Search') }}</button>
-                </form>
+        <div class="wrapper flex justify-end">
+            
             <div class="container" id="main">
                 @yield('content')
             </div>

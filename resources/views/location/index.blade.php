@@ -3,9 +3,9 @@
 @section('title','Liste des lieux de spectacle')
 
 @section('content')
-    <h1>Liste des {{ $resource }}</h1>
+    <h1 class="text-center pb-10">{{__('Liste des lieux de spectacle')}}</h1>
    
-    <ul>
+    <ul class="text-center">
             @foreach($locations as $location)
                 <li><a href="{{ route('location.show', $location->id) }}">{{ $location->designation }}</a>
                 @if($location->website)

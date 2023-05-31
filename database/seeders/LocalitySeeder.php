@@ -10,6 +10,7 @@ use App\Models\Locality;
 
 
 
+
 class LocalitySeeder extends Seeder
 {
     /**

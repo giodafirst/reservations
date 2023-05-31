@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Artist;
 use Illuminate\Support\Facades\Schema;
+use Faker\Factory as Faker;
+
 
 
 
@@ -19,6 +21,8 @@ class ArtistSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
+        $artists = [];
          //Désactiver les contraintes d'intégrité
          Schema::disableForeignKeyConstraints();
 
@@ -28,19 +32,14 @@ class ArtistSeeder extends Seeder
          //Réactiver les clefs
          Schema::enableForeignKeyConstraints();
 
-        $artists = [
-            ['firstname'=>'Daniel','lastname'=>'Marcelin'],
-            ['firstname'=>'Philippe','lastname'=>'Laurent'],
-            ['firstname'=>'Marius','lastname'=>'Von Mayenburg'],
-            ['firstname'=>'Olivier','lastname'=>'Boudon'],
-            ['firstname'=>'Anne','lastname'=>'Loop'],
-            ['firstname'=>'Pietro','lastname'=>'Varasso'],
-            ['firstname'=>'Laurent','lastname'=>'Caron'],
-            ['firstname'=>'Elena','lastname'=>'Perez'],
-            ['firstname'=>'Guillaume','lastname'=>'Alexandre'],
-            ['firstname'=>'Claude ','lastname'=>'Semal'],
-            ['firstname'=>'Laurence','lastname'=>'Warin'],
-        ];
+         //Define data
+         foreach(range(1,50) as $index){
+            $artists[] = [
+                'firstname' => $faker->firstname,
+                'lastname' => $faker->lastname,
+            ];
+        }
+        
         //Insert data in the table
         DB::table('artists')->insert($artists);
     }
