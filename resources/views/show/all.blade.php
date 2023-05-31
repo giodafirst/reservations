@@ -78,6 +78,9 @@
         @endforeach
     </table>
     <div>
+        <a class="button" style="background-color: blue" href="{{route('show.export')}}"> Export shows</a>
+    </div>
+    <div>
         <a class="button" style="background-color: green" href="{{route('show.create')}}"> Create a new Show</a>
     </div>
 @endsection

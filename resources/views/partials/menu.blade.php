@@ -14,7 +14,8 @@
                 <li><a href="{{route('representation.index')}}">{{__('Représentations')}}</a></li>
                 @auth
                 <li class="break"><a href="{{route('profile.edit')}}">{{__('Profile')}}</a></li>
-                <li class="break"><a href="{{route('login')}}">{{__('Se connecter')}}</a></li>
+                @if(auth()->user()->role == 'admin')<li><a href="{{route('show.all')}}">{{__('Admin')}}</a></li>@endif
+                @if(!auth())<li class="break"><a href="{{route('login')}}">{{__('Se connecter')}}</a></li>@endif
                 @endauth
                 @guest
                 <li class="break"><a href="{{route('dashboard')}}">{{__('Connexion')}}</a></li>

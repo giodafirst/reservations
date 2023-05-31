@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ShowsExport;
 use App\Models\ArtistTypeShow;
 use App\Models\Locality;
 use App\Models\Location;
@@ -9,7 +10,9 @@ use App\Models\Representation;
 use Illuminate\Http\Request;
 use App\Models\Show;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class ShowController extends Controller
@@ -91,8 +94,24 @@ class ShowController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public  function all($message="", $color=""){
-        $shows = Show::all();
-        return view('show.all', ["shows" => $shows, 'message' => $message, 'color' =>$color]);
+        if (Gate::allows('crud-catalogue')) {
+            $shows = Show::all();
+            return view('show.all', ["shows" => $shows, 'message' => $message, 'color' =>$color]);
+        } else {
+            return to_route('show.index');
+        }
+
+    }
+
+    public  function export(){
+        if (Gate::allows('crud-catalogue')) {
+            $shows = Show::all();
+
+            return Excel::download(new ShowsExport, 'shows.xlsx');
+        } else {
+            return to_route('show.index');
+        }
+
     }
 
     /**
