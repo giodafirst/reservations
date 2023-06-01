@@ -20,7 +20,8 @@
                 @guest
                 <li class="break"><a href="{{route('dashboard')}}">{{__('Connexion')}}</a></li>
                 <li><a href="{{route('register')}}">{{__('S\'inscrire')}}</a></li>
-                <li>
+             @endguest   <li>
+                
                 <form class="" action="{{ route('language.switch')}}" method="POST">
                     @csrf
                     <label for="language"></label>
@@ -33,7 +34,7 @@
                     </select>
                 </form>
                 </li>
-                @endguest
+
             </ul>
         </nav>
     </div>

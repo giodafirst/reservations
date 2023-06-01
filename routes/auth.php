@@ -69,7 +69,4 @@ Route::middleware('auth')->group(function () {
     Route::get('reservations/all', [ReservationController::class, 'forUser'])
         ->name('reservations_forUser');
 
-  //Afficher les données de compte de l'utilisateur authentifié
-  Route::get('account', [UserController::class, 'account'])
-  ->name('user_account');
 });
