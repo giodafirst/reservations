@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="back-nav">
-        <a href="{{ route('user_account') }}"><i class="fas fa-angle-left"></i>Account</a>
+        <a href="{{ route('profile.edit') }}"><i class="fas fa-angle-left"></i>Account</a>
     </div>
     
     @if(count($reservations) > 0)

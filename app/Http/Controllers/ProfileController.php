@@ -57,4 +57,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+     /**
+     * Afficher les données personnelles de l'utilisateur authentifié
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function account(){
+        
+        $user = Auth::user();
+        return view('user.account', [
+            'user' => $user,
+        ]);
+    }
 }

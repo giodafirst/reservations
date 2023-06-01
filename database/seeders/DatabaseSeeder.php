@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             ShowSeeder::class,
             RepresentationSeeder::class,
-            ArtistTypeSeeder::class,
+            ArtistTypeSeeder::class, // bug
             ArtistTypeShowSeeder::class,
             RoleUserSeeder::class,
             RepresentationUserSeeder::class,
