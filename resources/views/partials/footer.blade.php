@@ -2,9 +2,9 @@
     <div id="footer-wrapper">
         <div id="footer" class="container">
             <header class="major">
-                <h2>Euismod aliquam vehicula lorem</h2>
-                <p>Lorem ipsum dolor sit amet consectetur et sed adipiscing elit. Curabitur vel sem sit<br />
-                dolor neque semper magna lorem ipsum feugiat veroeros lorem ipsum dolore.</p>
+                <h2>Nous contacter</h2>
+                <p>Suivez-nous sur les reseaux sociaux<br />
+                ou pour nous contacter via le formulaire de contact</p>
             </header>
             <div class="row">
                 <section class="col-6 col-12-narrower">
