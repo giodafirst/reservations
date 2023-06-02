@@ -3,7 +3,7 @@
 <div id="header-wrapper">
     <div id="header" class="container">
         <!-- Logo -->
-        <h1><a class="" id="logo" href="/"><x-application-logo /></a></h1>
+        <h1><a id="logo" href="/"><x-application-logo /></a></h1>
         <!-- Nav -->
         <nav id="nav">
             <ul>
