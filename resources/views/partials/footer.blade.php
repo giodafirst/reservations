@@ -49,4 +49,7 @@
                 <li>&copy; Tixhub 2023</li>
             </ul>
         </div>
+        <div class="hidden sm:flex items-center justify-center md:justify-end">
+                <a href="{{ url('/rss') }}" class="text-header hover:text-gray-900"><img src="{{ asset('images/rss.svg') }}" alt="rss" class="h-6 items-center"></a>
+             </div>
     </div>
